@@ -1,0 +1,21 @@
+<div>
+  <h2>Login</h2>
+
+  <form>
+    <div>
+      <label for="email">E-Mail:</label>
+      <input type="text" [(ngModel)]="email" name="email" id="email">
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" [(ngModel)]="password" name="password" id="password">
+    </div>
+
+    <div>
+      <button (click)="tryLogin()">
+        Login
+      </button>
+    </div>
+  </form>
+</div>

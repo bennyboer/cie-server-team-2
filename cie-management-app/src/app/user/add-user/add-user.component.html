@@ -20,5 +20,10 @@
     <input type="password" [(ngModel)]="user.password" placeholder="Password" name="password" id="password">
   </div>
 
+  <div>
+    <label for="administrator">Is administrator:</label>
+    <input type="checkbox" [(ngModel)]="user.isAdministrator" name="administrator" id="administrator">
+  </div>
+
   <button (click)="createUser()">Create</button>
 </form>
