@@ -40,7 +40,7 @@ export class AuthService {
 
   public logout() {
     if (this.isAuthenticated()) {
-      localStorage.setItem(this.ACCESS_TOKEN, null);
+      localStorage.removeItem(this.ACCESS_TOKEN);
       this.loggedInEventEmitter.emit(false);
     }
   }
