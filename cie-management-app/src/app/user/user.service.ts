@@ -8,7 +8,7 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  private userUrl = '/api';
+  private userUrl = '/api/users';
 
   public getUsers() {
     return this.http.get<User[]>(this.userUrl);
