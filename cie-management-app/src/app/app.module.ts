@@ -10,6 +10,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {JwtModule} from '@auth0/angular-jwt';
 import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import {ProtectedDirective} from './directives/protected.directive';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -20,7 +22,9 @@ export function tokenGetter() {
     AppComponent,
     UserComponent,
     AddUserComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    ProtectedDirective
   ],
   imports: [
     BrowserModule,

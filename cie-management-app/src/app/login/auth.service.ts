@@ -1,17 +1,23 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../user/user';
 import {AccessToken} from './access-token';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {Observable, Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) {
+  readonly ACCESS_TOKEN: string = 'access_token';
+
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
   }
 
   private authUrl = '/api/auth';
+
+  private loggedInEventEmitter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public login(email: string, password: string) {
     const user = new User();
@@ -21,10 +27,32 @@ export class AuthService {
     const future = this.http.post<AccessToken>(this.authUrl + '/signin', user);
 
     future.subscribe(token => {
-      localStorage.setItem('access_token', token.accessToken);
+      localStorage.setItem(this.ACCESS_TOKEN, token.accessToken);
+      this.loggedInEventEmitter.emit(this.isAuthenticated());
     });
 
     return future;
+  }
+
+  public loggedIn(): Observable<boolean> {
+    return this.loggedInEventEmitter.asObservable();
+  }
+
+  public logout() {
+    if (this.isAuthenticated()) {
+      localStorage.setItem(this.ACCESS_TOKEN, null);
+      this.loggedInEventEmitter.emit(false);
+    }
+  }
+
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem(this.ACCESS_TOKEN);
+
+    if (token !== null) {
+      return !this.jwtHelper.isTokenExpired();
+    }
+
+    return false;
   }
 
 }

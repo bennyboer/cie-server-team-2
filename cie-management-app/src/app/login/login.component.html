@@ -17,5 +17,9 @@
         Login
       </button>
     </div>
+
+    <div style="color: red" *ngIf="showError">
+      Could not login.
+    </div>
   </form>
 </div>
