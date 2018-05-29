@@ -1,5 +1,6 @@
 package edu.hm.cs.cieserver.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,13 +11,15 @@ import org.springframework.stereotype.Service;
 @Primary
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+	@Autowired
 	private UserRepository userRepository;
 
-	public UserDetailsServiceImpl(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-
-	// This method is used by JWTAuthenticationFilter
+	/**
+	 * Load a user by id.
+	 *
+	 * @param id to load user by
+	 * @return loaded user
+	 */
 	public UserDetails loadUserById(Long id) {
 		User user = userRepository.findById(id).get();
 

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * JSON web token provider.
+ */
 @Component
 public class JWTTokenProvider {
 
@@ -21,9 +24,18 @@ public class JWTTokenProvider {
 	@Value("${app.cie-server.jwt-expiration}")
 	private int expiration;
 
+	/**
+	 * Secret used with the json web token.
+	 */
 	@Value("${app.cie-server.jwt-secret}")
 	private String secret;
 
+	/**
+	 * Generate a new JSON web token.
+	 *
+	 * @param authentication to generate token for
+	 * @return new JSON web token
+	 */
 	public String generateToken(Authentication authentication) {
 		User userPrincipal = (User) authentication.getPrincipal();
 
@@ -38,6 +50,12 @@ public class JWTTokenProvider {
 				.compact();
 	}
 
+	/**
+	 * Get user id from JSON web token.
+	 *
+	 * @param token to extract user id from
+	 * @return user id extracted from JWT
+	 */
 	public Long getUserIdFromJWT(String token) {
 		Claims claims = Jwts.parser()
 				.setSigningKey(secret)
@@ -47,9 +65,16 @@ public class JWTTokenProvider {
 		return Long.parseLong(claims.getSubject());
 	}
 
+	/**
+	 * Validate the passed JSON web token.
+	 *
+	 * @param authToken token to validate
+	 * @return whether the passed token is valid
+	 */
 	public boolean validateToken(String authToken) {
 		try {
 			Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
+
 			return true;
 		} catch (SignatureException ex) {
 			logger.error("Invalid JWT signature");
@@ -62,6 +87,7 @@ public class JWTTokenProvider {
 		} catch (IllegalArgumentException ex) {
 			logger.error("JWT claims string is empty.");
 		}
+
 		return false;
 	}
 

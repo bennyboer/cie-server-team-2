@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Filter to implement custom behaviour needed for the json web token authentication.
+ */
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
 	private static final Logger logger = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
@@ -48,6 +51,12 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
+	/**
+	 * Get json web token extracted from request.
+	 *
+	 * @param request to extract token from
+	 * @return token extracted from the request
+	 */
 	private String getJwtFromRequest(HttpServletRequest request) {
 		String bearerToken = request.getHeader("Authorization");
 		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {

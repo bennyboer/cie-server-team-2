@@ -23,6 +23,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 
+/**
+ * Controller handling authentication purposes.
+ */
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -79,4 +82,5 @@ public class AuthController {
 
 		return ResponseEntity.created(location).body(new APIResponse(true, "User registered successfully"));
 	}
+
 }

@@ -72,7 +72,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/api/course/**").permitAll()
 				.anyRequest().authenticated();
 
-		// Add our custom JWT security filter
+		// Add custom JWT security filter
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
