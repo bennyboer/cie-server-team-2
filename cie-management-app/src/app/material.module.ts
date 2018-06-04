@@ -1,16 +1,44 @@
 import {
   MatButtonModule, MatCardModule,
-  MatCheckboxModule,
+  MatCheckboxModule, MatDialogModule,
   MatIconModule, MatInputModule,
-  MatMenuModule,
-  MatSidenavModule, MatTableModule,
+  MatMenuModule, MatProgressSpinnerModule, MatSelectModule,
+  MatSidenavModule, MatSnackBarModule, MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 
 @NgModule({
-  imports: [MatButtonModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatMenuModule, MatIconModule, MatCardModule, MatInputModule, MatTableModule],
-  exports: [MatButtonModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatMenuModule, MatIconModule, MatCardModule, MatInputModule, MatTableModule],
+  imports: [
+    MatButtonModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatMenuModule,
+    MatIconModule,
+    MatCardModule,
+    MatInputModule,
+    MatTableModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatSelectModule
+  ],
+  exports: [
+    MatButtonModule,
+    MatCheckboxModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatMenuModule,
+    MatIconModule,
+    MatCardModule,
+    MatInputModule,
+    MatTableModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatSelectModule
+  ]
 })
 export class CustomMaterialModule {
 }

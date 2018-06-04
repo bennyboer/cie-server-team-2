@@ -6,10 +6,18 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {UserTableComponent} from './user/table/user-table.component';
 import {CreateUserComponent} from './user/create/create-user.component';
 import {EditUserComponent} from './user/edit/edit-user.component';
+import {CourseComponent} from './course/course.component';
+import {CampusComponent} from './campus/campus.component';
+import {DepartmentComponent} from './department/department.component';
+import {LecturerComponent} from './lecturer/lecturer.component';
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'courses', component: CourseComponent},
+  {path: 'locations', component: CampusComponent},
+  {path: 'departments', component: DepartmentComponent},
+  {path: 'lecturers', component: LecturerComponent},
   {
     path: 'users', component: UserComponent, children: [
       {path: '', redirectTo: 'overview', pathMatch: 'full'},

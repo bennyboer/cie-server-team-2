@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../user';
 import {Router} from '@angular/router';
 import {UserService} from '../user.service';
-import {MatTableDataSource} from '@angular/material';
+import {MatSnackBar, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-user-table',
@@ -16,7 +16,7 @@ export class UserTableComponent implements OnInit {
   displayedColumns = ['id', 'firstName', 'lastName', 'email', 'admin', 'actions'];
   dataSource: MatTableDataSource<User> = null;
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private router: Router, private userService: UserService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -32,6 +32,10 @@ export class UserTableComponent implements OnInit {
       .subscribe(data => {
         this.users = this.users.filter(u => u !== user);
         this.dataSource = new MatTableDataSource<User>(this.users);
+
+        this.snackBar.open('User with id ' + user.id + ' has been deleted.', 'OK', {
+          duration: 1000
+        });
       });
   }
 

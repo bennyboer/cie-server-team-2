@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from './auth.service';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
-import {ErrorStateMatcher} from '@angular/material';
+import {ErrorStateMatcher, MatSnackBar} from '@angular/material';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 
 @Component({
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   showError = false;
 
-  constructor(private authService: AuthService, private router: Router, private location: Location) {
+  constructor(private authService: AuthService, private router: Router, private location: Location, private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -35,11 +35,20 @@ export class LoginComponent implements OnInit {
       if (token.isAdmin) {
         this.location.replaceState('/');
         this.router.navigateByUrl('/dashboard');
+        this.snackBar.open('Logged in successfully!', 'OK', {
+          duration: 2000
+        })
       } else {
         this.showError = true;
+        this.snackBar.open('The user you tried to log in with does not have administrator privileges.', 'OK', {
+          duration: 3000
+        });
       }
     }, error => {
       this.showError = true;
+      this.snackBar.open('The given credentials do not apply to any user. Try again.', 'OK', {
+        duration: 3000
+      });
     });
   }
 
