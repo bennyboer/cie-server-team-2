@@ -1,6 +1,7 @@
 package edu.hm.cs.cieserver.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -42,13 +43,12 @@ public class User implements UserDetails {
 	/**
 	 * Password of the user.
 	 */
-	@JsonIgnore
 	private String password;
 
 	/**
 	 * Whether the user is administrator.
 	 */
-	@JsonIgnore
+	@JsonProperty
 	private boolean isAdministrator;
 
 	/**
@@ -81,6 +81,7 @@ public class User implements UserDetails {
 	 *
 	 * @return password of the user
 	 */
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -90,6 +91,7 @@ public class User implements UserDetails {
 	 *
 	 * @param password of the user
 	 */
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -153,17 +155,17 @@ public class User implements UserDetails {
 	 *
 	 * @return whether the user is administrator
 	 */
-	public boolean isAdministrator() {
+	public boolean getIsAdministrator() {
 		return isAdministrator;
 	}
 
 	/**
 	 * Set user as administrator?
 	 *
-	 * @param administrator whether to set user as administrator
+	 * @param isAdministrator whether to set user as administrator
 	 */
-	public void setAdministrator(boolean administrator) {
-		isAdministrator = administrator;
+	public void setIsAdministrator(boolean isAdministrator) {
+		this.isAdministrator = isAdministrator;
 	}
 
 	@Override
@@ -192,8 +194,9 @@ public class User implements UserDetails {
 	}
 
 	@Override
+	@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if (isAdministrator()) {
+		if (getIsAdministrator()) {
 			List<GrantedAuthority> authorities = new ArrayList<>();
 
 			authorities.add((GrantedAuthority) () -> "ROLE_ADMIN");

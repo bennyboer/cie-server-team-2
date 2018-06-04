@@ -11,6 +11,11 @@ public class JWTAuthenticationResponse {
 	private String accessToken;
 
 	/**
+	 * Whether the authenticated user is admin.
+	 */
+	private boolean isAdmin;
+
+	/**
 	 * Type of the token.
 	 */
 	private String tokenType = "Bearer";
@@ -19,9 +24,11 @@ public class JWTAuthenticationResponse {
 	 * Create new authentication response.
 	 *
 	 * @param accessToken to pass to client
+	 * @param isAdmin     whether the user is admin
 	 */
-	public JWTAuthenticationResponse(String accessToken) {
+	public JWTAuthenticationResponse(String accessToken, boolean isAdmin) {
 		this.accessToken = accessToken;
+		this.isAdmin = isAdmin;
 	}
 
 	/**
@@ -60,4 +67,21 @@ public class JWTAuthenticationResponse {
 		this.tokenType = tokenType;
 	}
 
+	/**
+	 * Whether the authenticated user is admin.
+	 *
+	 * @return whether the authenticated user is admin
+	 */
+	public boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	/**
+	 * Set whether the authenticated user is an admin.
+	 *
+	 * @param admin whether user is admin or not
+	 */
+	public void setIsAdmin(boolean admin) {
+		isAdmin = admin;
+	}
 }

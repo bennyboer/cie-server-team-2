@@ -31,9 +31,13 @@ export class LoginComponent implements OnInit {
   }
 
   tryLogin() {
-    this.authService.login(this.email, this.password).subscribe(result => {
-      this.location.replaceState('/');
-      this.router.navigateByUrl('/dashboard');
+    this.authService.login(this.email, this.password).subscribe(token => {
+      if (token.isAdmin) {
+        this.location.replaceState('/');
+        this.router.navigateByUrl('/dashboard');
+      } else {
+        this.showError = true;
+      }
     }, error => {
       this.showError = true;
     });

@@ -13,8 +13,13 @@ export class ProtectedDirective implements OnDestroy {
   constructor(private authService: AuthService, private router: Router, private location: Location) {
     if (!authService.isAuthenticated()) {
       this.location.replaceState('/'); // Clears browser history so they can't navigate with back button
-      this.router.navigate(['']);
       this.router.navigateByUrl('/login');
+
+      authService.initialize().subscribe(result => {
+        if (result != null) {
+          alert('There is no administrator currently set, so a default one has been created. Log in with: \nEmail: ' + result.email + '\nPassword: admin');
+        }
+      });
     }
 
     this.sub = this.authService.loggedIn().subscribe((loggedIn) => {

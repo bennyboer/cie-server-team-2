@@ -69,7 +69,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 						"/**/*.js")
 				.permitAll()
 				.antMatchers("/api/auth/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/course/**").permitAll()
+				.antMatchers("/api/util/**").permitAll()
+				.antMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
 				.anyRequest().authenticated();
 
 		// Add custom JWT security filter

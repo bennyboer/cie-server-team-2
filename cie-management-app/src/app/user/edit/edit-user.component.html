@@ -1,0 +1,51 @@
+<button mat-raised-button (click)="back()"><mat-icon>undo</mat-icon> Return to overview</button>
+
+<div class="center-card">
+  <mat-card class="centered-card">
+    <mat-card-header>
+      <mat-card-title>
+        <b>Edit user</b>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="user == null">
+        Loading...
+      </div>
+      <form *ngIf="user != null">
+
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="First name" [(ngModel)]="user.firstName" name="firstName">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Last name" [(ngModel)]="user.lastName" name="lastName">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="E-Mail" [(ngModel)]="user.email" [formControl]="emailFormControl" [errorStateMatcher]="matcher" name="email">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%">
+          <input matInput [type]="'password'" placeholder="Password" [(ngModel)]="user.password" name="password">
+        </mat-form-field>
+
+        <div>
+          <mat-checkbox [(ngModel)]="user.isAdministrator" name="admin">Is administrator</mat-checkbox>
+        </div>
+
+        <hr>
+
+        <div>
+          <button mat-raised-button (click)="submitUser()"><mat-icon>create</mat-icon> Submit changes</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+

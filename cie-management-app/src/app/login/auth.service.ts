@@ -4,6 +4,7 @@ import {User} from '../user/user';
 import {AccessToken} from './access-token';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Observable, Subject} from 'rxjs';
+import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
 
   readonly ACCESS_TOKEN: string = 'access_token';
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService, private userService: UserService) {
   }
 
   private authUrl = '/api/auth';
@@ -27,11 +28,17 @@ export class AuthService {
     const future = this.http.post<AccessToken>(this.authUrl + '/signin', user);
 
     future.subscribe(token => {
-      localStorage.setItem(this.ACCESS_TOKEN, token.accessToken);
-      this.loggedInEventEmitter.emit(this.isAuthenticated());
+      if (token.isAdmin) {
+        localStorage.setItem(this.ACCESS_TOKEN, token.accessToken);
+        this.loggedInEventEmitter.emit(this.isAuthenticated());
+      }
     });
 
     return future;
+  }
+
+  public initialize() {
+    return this.http.get<User>(this.authUrl);
   }
 
   public loggedIn(): Observable<boolean> {
