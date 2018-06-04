@@ -7,11 +7,13 @@ import {UserComponent} from './user/user-component/user.component';
 import {UserService} from './user/user.service';
 import {AppRoutingModule} from './app.routing.module';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwtModule} from '@auth0/angular-jwt';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import {LoginComponent} from './login/login.component';
+import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProtectedDirective} from './directives/protected.directive';
+import {CustomMaterialModule} from './material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -31,6 +33,9 @@ export function tokenGetter() {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    CustomMaterialModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -42,4 +47,5 @@ export function tokenGetter() {
   providers: [UserService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

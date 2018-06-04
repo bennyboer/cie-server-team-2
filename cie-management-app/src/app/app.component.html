@@ -1,14 +1,17 @@
-<div protected>
-  <h1>
-    {{title}}
-  </h1>
-
-  <a routerLink="/users"> List Users</a>
-  <a style="margin-left:10px" routerLink="/add">Add User</a>
-  <br/>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button *ngIf="isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" class="main-navigation">
+      <button mat-menu-item (click)="navigateTo('/users')">User Management</button>
+      <button mat-menu-item (click)="navigateTo('/add-user')">Add User</button>
+      <button mat-menu-item (click)="navigateTo('/courses')">Course Management</button>
+      <button (click)="logout()" mat-menu-item>Logout</button>
+    </mat-menu>
+    <span>{{title}}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div protected class="main-content">
   <router-outlet></router-outlet>
-
-  <div *ngIf="isLoggedIn">
-    <button (click)="logout()">Logout</button>
-  </div>
 </div>

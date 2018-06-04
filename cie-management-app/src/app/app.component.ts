@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from './login/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,11 @@ export class AppComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
   private loggedInObservable: any = null;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isAuthenticated();
+
     this.loggedInObservable = this.authService.loggedIn().subscribe(isLoggedIn => {
       this.isLoggedIn = isLoggedIn;
     });
@@ -29,6 +32,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  navigateTo(url: string): void {
+    this.router.navigateByUrl(url);
   }
 
 }
