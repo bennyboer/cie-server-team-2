@@ -8,3 +8,17 @@ html, body {
 * {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.center-card {
+  display: flex;
+  justify-content: center;
+}
+
+.centered-card {
+  max-width: 400px;
+}
+
+mat-card-title {
+  font-weight: bold;
+  font-size: 1.3em !important;
+}

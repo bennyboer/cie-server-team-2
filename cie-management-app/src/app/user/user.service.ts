@@ -14,12 +14,24 @@ export class UserService {
     return this.http.get<User[]>(this.userUrl);
   }
 
-  public deleteUser(user) {
+  public getUser(id: number) {
+    return this.http.get<User>(this.userUrl + '/' + id);
+  }
+
+  public deleteUser(user: User) {
     return this.http.delete(this.userUrl + '/' + user.id);
   }
 
-  public createUser(user) {
+  public createUser(user: User) {
     return this.http.post<User>(this.userUrl, user);
+  }
+
+  public updateUser(user: User) {
+    return this.http.put(this.userUrl, user);
+  }
+
+  public getCurrentUser() {
+    return this.http.get<User>(this.userUrl + '/current');
   }
 
 }
