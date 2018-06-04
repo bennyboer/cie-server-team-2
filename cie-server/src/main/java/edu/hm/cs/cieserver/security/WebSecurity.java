@@ -70,6 +70,27 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.antMatchers("/api/auth/**").permitAll()
 				.antMatchers("/api/util/**").permitAll()
+
+				.antMatchers(HttpMethod.GET, "/api/courses/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/courses/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/courses/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.PUT, "/api/courses/**").hasAuthority("ROLE_ADMIN")
+
+				.antMatchers(HttpMethod.GET, "/api/locations/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/locations/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/locations/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.PUT, "/api/locations/**").hasAuthority("ROLE_ADMIN")
+
+				.antMatchers(HttpMethod.GET, "/api/departments/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/departments/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/departments/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.PUT, "/api/departments/**").hasAuthority("ROLE_ADMIN")
+
+				.antMatchers(HttpMethod.GET, "/api/lecturers/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/lecturers/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.DELETE, "/api/lecturers/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.PUT, "/api/lecturers/**").hasAuthority("ROLE_ADMIN")
+
 				.antMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
 				.anyRequest().authenticated();
 

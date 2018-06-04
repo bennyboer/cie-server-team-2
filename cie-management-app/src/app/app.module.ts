@@ -16,6 +16,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CreateUserComponent} from './user/create/create-user.component';
 import {EditUserComponent} from './user/edit/edit-user.component';
 import {UserTableComponent} from './user/table/user-table.component';
+import {CourseComponent} from './course/course.component';
+import {CourseService} from './course/course.service';
+import {CourseDialogComponent} from './course/course-dialog/course-dialog.component';
+import { LecturerComponent } from './lecturer/lecturer.component';
+import { CampusComponent } from './campus/campus.component';
+import { DepartmentComponent } from './department/department.component';
+import { DepartmentDialogComponent } from './department/department-dialog/department-dialog.component';
+import { CampusDialogComponent } from './campus/campus-dialog/campus-dialog.component';
+import { LecturerDialogComponent } from './lecturer/lecturer-dialog/lecturer-dialog.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -30,7 +39,21 @@ export function tokenGetter() {
     UserTableComponent,
     LoginComponent,
     DashboardComponent,
-    ProtectedDirective
+    ProtectedDirective,
+    CourseComponent,
+    CourseDialogComponent,
+    LecturerComponent,
+    CampusComponent,
+    DepartmentComponent,
+    DepartmentDialogComponent,
+    CampusDialogComponent,
+    LecturerDialogComponent
+  ],
+  entryComponents: [
+    CourseDialogComponent,
+    CampusDialogComponent,
+    DepartmentDialogComponent,
+    LecturerDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +71,7 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [UserService],
+  providers: [UserService, CourseService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

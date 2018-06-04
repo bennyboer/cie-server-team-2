@@ -1,0 +1,50 @@
+<form>
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Name" [(ngModel)]="course.name" name="name">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <textarea matInput placeholder="Description" [(ngModel)]="course.description" name="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Room" [(ngModel)]="course.room" name="room">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Available Slots" [(ngModel)]="course.availableSlots" name="slots">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="ECTS" [(ngModel)]="course.ects" name="ects">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="US Credits" [(ngModel)]="course.usCredits" name="usCredits">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="SWS" [(ngModel)]="course.semesterWeekHours" name="sws">
+  </mat-form-field>
+
+  <!-- TODO Dates and duration -->
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Course status" [(ngModel)]="course.courseStatus" name="courseStatus">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Lecturer" [(ngModel)]="course.lecturer" name="lecturer">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Department" [(ngModel)]="course.lecturer" name="lecturer">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Location" [(ngModel)]="course.location" name="location">
+  </mat-form-field>
+
+  <button mat-raised-button (click)="finish()"><mat-icon>create</mat-icon> Finish</button>
+
+</form>
