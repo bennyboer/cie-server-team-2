@@ -1,4 +1,3 @@
-import {CourseStatus} from './course-status';
 import {Lecturer} from '../lecturer/lecturer';
 import {Campus} from '../campus/campus';
 import {Department} from '../department/department';
@@ -14,7 +13,7 @@ export class Course {
   semesterWeekHours: number;
   dates: Date;
   duration: number;
-  courseStatus: CourseStatus;
+  courseStatus: string;
   lecturer: Lecturer;
   department: Department;
   location: Campus;

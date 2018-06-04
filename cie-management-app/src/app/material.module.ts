@@ -2,7 +2,7 @@ import {
   MatButtonModule, MatCardModule,
   MatCheckboxModule, MatDialogModule,
   MatIconModule, MatInputModule,
-  MatMenuModule, MatProgressSpinnerModule,
+  MatMenuModule, MatProgressSpinnerModule, MatSelectModule,
   MatSidenavModule, MatSnackBarModule, MatTableModule,
   MatToolbarModule
 } from '@angular/material';
@@ -21,7 +21,8 @@ import {NgModule} from '@angular/core';
     MatTableModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -35,7 +36,8 @@ import {NgModule} from '@angular/core';
     MatTableModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ]
 })
 export class CustomMaterialModule {

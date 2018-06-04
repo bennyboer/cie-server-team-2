@@ -30,19 +30,35 @@
   <!-- TODO Dates and duration -->
 
   <mat-form-field style="width: 100%">
-    <input matInput placeholder="Course status" [(ngModel)]="course.courseStatus" name="courseStatus">
+    <mat-select placeholder="Course status" [(value)]="course.courseStatus">
+      <mat-option *ngFor="let status of getStatusNames()" [value]="status">
+        {{ status }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field style="width: 100%">
-    <input matInput placeholder="Lecturer" [(ngModel)]="course.lecturer" name="lecturer">
+    <mat-select placeholder="Lecturer" [(value)]="course.lecturer">
+      <mat-option *ngFor="let lecturer of lecturers" [value]="lecturer">
+        {{ lecturer.name }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field style="width: 100%">
-    <input matInput placeholder="Department" [(ngModel)]="course.lecturer" name="lecturer">
+    <mat-select placeholder="Department" [(value)]="course.department">
+      <mat-option *ngFor="let department of departments" [value]="department">
+        {{ department.name }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field style="width: 100%">
-    <input matInput placeholder="Location" [(ngModel)]="course.location" name="location">
+    <mat-select placeholder="Location" [(value)]="course.location">
+      <mat-option *ngFor="let campus of campuses" [value]="campus">
+        {{ campus.name }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <button mat-raised-button (click)="finish()"><mat-icon>create</mat-icon> Finish</button>

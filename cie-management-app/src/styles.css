@@ -22,3 +22,8 @@ mat-card-title {
   font-weight: bold;
   font-size: 1.3em !important;
 }
+
+a {
+  color: lightcoral;
+  text-decoration: none;
+}
