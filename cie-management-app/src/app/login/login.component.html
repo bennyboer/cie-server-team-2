@@ -1,25 +1,36 @@
-<div>
-  <h2>Login</h2>
+<div class="center-card">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>
+        <b>Login</b>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form>
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="E-Mail" [(ngModel)]="email" [formControl]="emailFormControl" [errorStateMatcher]="matcher" name="email">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
 
-  <form>
-    <div>
-      <label for="email">E-Mail:</label>
-      <input type="text" [(ngModel)]="email" name="email" id="email">
-    </div>
+        <mat-form-field style="width: 100%">
+          <input matInput [type]="'password'" placeholder="Password" [(ngModel)]="password" name="password">
+        </mat-form-field>
 
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" [(ngModel)]="password" name="password" id="password">
-    </div>
+        <div style="color: red" *ngIf="showError">
+          Could not login.
+        </div>
 
-    <div>
-      <button (click)="tryLogin()">
-        Login
-      </button>
-    </div>
-
-    <div style="color: red" *ngIf="showError">
-      Could not login.
-    </div>
-  </form>
+        <div>
+          <button mat-raised-button (click)="tryLogin()">
+            Login
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>
