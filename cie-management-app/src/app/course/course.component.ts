@@ -23,7 +23,7 @@ export class CourseComponent implements OnInit {
     'semesterWeekHourse',
     'courseStatus',
     'lecturer',
-    'department',
+    'lecturer',
     'location',
     'actions'
   ];

@@ -1,3 +1,15 @@
-<p>
-  department-dialog works!
-</p>
+<form>
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Number" [(ngModel)]="department.number" name="number">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Name" [(ngModel)]="department.name" name="name">
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Color" [(ngModel)]="department.color" name="color">
+  </mat-form-field>
+
+  <button mat-raised-button (click)="finish()"><mat-icon>create</mat-icon> Finish</button>
+</form>

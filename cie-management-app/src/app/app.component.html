@@ -4,13 +4,13 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu" class="main-navigation">
-      <button mat-menu-item (click)="navigateTo('/dashboard')">Dashboard</button>
-      <button mat-menu-item (click)="navigateTo('/users')">User Management</button>
-      <button mat-menu-item (click)="navigateTo('/courses')">Course Management</button>
-      <button mat-menu-item (click)="navigateTo('/locations')">Campus Management</button>
-      <button mat-menu-item (click)="navigateTo('/departments')">Department Management</button>
-      <button mat-menu-item (click)="navigateTo('/lecturers')">Lecturer Management</button>
-      <button (click)="logout()" mat-menu-item>Logout</button>
+      <button mat-menu-item (click)="navigateTo('/dashboard')"><mat-icon>dashboard</mat-icon> Dashboard</button>
+      <button mat-menu-item (click)="navigateTo('/users')"><mat-icon>account_circle</mat-icon> Users</button>
+      <button mat-menu-item (click)="navigateTo('/courses')"><mat-icon>library_books</mat-icon> Courses</button>
+      <button mat-menu-item (click)="navigateTo('/locations')"><mat-icon>place</mat-icon> Campuses</button>
+      <button mat-menu-item (click)="navigateTo('/departments')"><mat-icon>group_work</mat-icon> Departments</button>
+      <button mat-menu-item (click)="navigateTo('/lecturers')"><mat-icon>supervised_user_circle</mat-icon> Lecturers</button>
+      <button (click)="logout()" mat-menu-item><mat-icon>exit_to_app</mat-icon> Logout</button>
     </mat-menu>
     <span>{{title}}</span>
   </mat-toolbar-row>

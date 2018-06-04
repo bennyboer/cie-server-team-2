@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {Department} from '../department';
 
 @Component({
   selector: 'app-department-dialog',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DepartmentDialogComponent implements OnInit {
 
-  constructor() { }
+  department: Department = new Department();
+
+  constructor(private dialogRef: MatDialogRef<DepartmentDialogComponent>, @Inject(MAT_DIALOG_DATA) public d: Department) {
+    if (d !== undefined && d !== null) {
+      this.department = d;
+    }
+  }
 
   ngOnInit() {
+  }
+
+  finish() {
+    this.dialogRef.close(this.department);
   }
 
 }
