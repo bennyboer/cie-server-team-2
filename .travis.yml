@@ -1,11 +1,14 @@
 language: java
 jdk:
- - oraclejdk8
+  - oraclejdk8
+ 
+before_install:
+  - chmod +x ./cie-server/mvnw
 
 install:
- # update mvnw
- - mvn -N io.takari:maven:wrapper
- - ./cie-server/mvnw install -Prelease
+  # update mvnw
+  - mvn -N io.takari:maven:wrapper
+  - ./cie-server/mvnw install -Prelease
 
 script:
   cd cie-server
