@@ -1,11 +1,9 @@
 language: java
 jdk:
- - oraclejdk8
-
-install:
- # update mvnw
- - mvn -N io.takari:maven:wrapper
- - ./mvnw install -Prelease
+  - oraclejdk8
 
 script:
-  mvn test clean -Prelease
+  - cd ./cie-server
+  - mvn -N io.takari:maven:wrapper
+  - chmod +x ./mvnw
+  - ./mvnw install -DskipTests
