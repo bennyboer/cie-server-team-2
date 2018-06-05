@@ -5,7 +5,8 @@ jdk:
 install:
  # update mvnw
  - mvn -N io.takari:maven:wrapper
- - ./mvnw install -Prelease
+ - ./cie-server/mvnw install -Prelease
 
 script:
+  cd cie-server
   mvn test clean -Prelease
