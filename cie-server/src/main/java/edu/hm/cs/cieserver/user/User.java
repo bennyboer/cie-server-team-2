@@ -2,14 +2,12 @@ package edu.hm.cs.cieserver.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.hm.cs.cieserver.course.Course;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * User entity.
@@ -17,6 +15,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "\"User\"")
 public class User implements UserDetails {
+
+	/**
+	 * Role for admins.
+	 */
+	public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
 	/**
 	 * ID of the user.
@@ -50,6 +53,20 @@ public class User implements UserDetails {
 	 */
 	@JsonProperty
 	private boolean isAdministrator;
+
+	/**
+	 * Set of courses this user selected.
+	 */
+	@JsonIgnore
+	@ManyToMany
+	private Set<Course> selectedCourses;
+
+	/**
+	 * Set of courses this user favorited.
+	 */
+	@JsonIgnore
+	@ManyToMany
+	private Set<Course> favorizedCourses;
 
 	/**
 	 * Create new user.
@@ -168,6 +185,42 @@ public class User implements UserDetails {
 		this.isAdministrator = isAdministrator;
 	}
 
+	/**
+	 * Get selected courses for this user.
+	 *
+	 * @return all selected courses for this user
+	 */
+	public Set<Course> getSelectedCourses() {
+		return selectedCourses;
+	}
+
+	/**
+	 * Set selected courses for this user.
+	 *
+	 * @param selectedCourses to set for this user
+	 */
+	public void setSelectedCourses(Set<Course> selectedCourses) {
+		this.selectedCourses = selectedCourses;
+	}
+
+	/**
+	 * Get favorited courses for this user.
+	 *
+	 * @return favorited courses of this user
+	 */
+	public Set<Course> getFavorizedCourses() {
+		return favorizedCourses;
+	}
+
+	/**
+	 * Set favorited courses for this user.
+	 *
+	 * @param favorizedCourses of this user
+	 */
+	public void setFavorizedCourses(Set<Course> favorizedCourses) {
+		this.favorizedCourses = favorizedCourses;
+	}
+
 	@Override
 	public String getUsername() {
 		return email; // Email acts as username.
@@ -199,7 +252,7 @@ public class User implements UserDetails {
 		if (getIsAdministrator()) {
 			List<GrantedAuthority> authorities = new ArrayList<>();
 
-			authorities.add((GrantedAuthority) () -> "ROLE_ADMIN");
+			authorities.add((GrantedAuthority) () -> ROLE_ADMIN);
 
 			return authorities;
 		}

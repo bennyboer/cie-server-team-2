@@ -1,5 +1,6 @@
 package edu.hm.cs.cieserver.security;
 
+import edu.hm.cs.cieserver.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -69,29 +70,33 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 						"/**/*.js")
 				.permitAll()
 				.antMatchers("/api/auth/**").permitAll()
-				.antMatchers("/api/util/**").permitAll()
 
+				.antMatchers(HttpMethod.GET, "/api/courses/selected/**").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.GET, "/api/courses/favorized/**").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.GET, "/api/courses/selected").authenticated()
+				.antMatchers(HttpMethod.GET, "/api/courses/favorized").authenticated()
 				.antMatchers(HttpMethod.GET, "/api/courses/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/courses/**").hasAuthority("ROLE_ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/api/courses/**").hasAuthority("ROLE_ADMIN")
-				.antMatchers(HttpMethod.PUT, "/api/courses/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.POST, "/api/courses/**").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.DELETE, "/api/courses/**").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.PUT, "/api/courses/**").hasAuthority(User.ROLE_ADMIN)
 
 				.antMatchers(HttpMethod.GET, "/api/locations/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/locations/**").hasAuthority("ROLE_ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/api/locations/**").hasAuthority("ROLE_ADMIN")
-				.antMatchers(HttpMethod.PUT, "/api/locations/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.POST, "/api/locations/**").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.DELETE, "/api/locations/**").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.PUT, "/api/locations/**").hasAuthority(User.ROLE_ADMIN)
 
 				.antMatchers(HttpMethod.GET, "/api/departments/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/departments/**").hasAuthority("ROLE_ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/api/departments/**").hasAuthority("ROLE_ADMIN")
-				.antMatchers(HttpMethod.PUT, "/api/departments/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.POST, "/api/departments/**").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.DELETE, "/api/departments/**").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.PUT, "/api/departments/**").hasAuthority(User.ROLE_ADMIN)
 
 				.antMatchers(HttpMethod.GET, "/api/lecturers/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/lecturers/**").hasAuthority("ROLE_ADMIN")
-				.antMatchers(HttpMethod.DELETE, "/api/lecturers/**").hasAuthority("ROLE_ADMIN")
-				.antMatchers(HttpMethod.PUT, "/api/lecturers/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.POST, "/api/lecturers/**").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.DELETE, "/api/lecturers/**").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.PUT, "/api/lecturers/**").hasAuthority(User.ROLE_ADMIN)
 
-				.antMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers(HttpMethod.GET, "/api/users/current").authenticated()
+				.antMatchers("/api/users/**").hasAuthority(User.ROLE_ADMIN)
 				.anyRequest().authenticated();
 
 		// Add custom JWT security filter

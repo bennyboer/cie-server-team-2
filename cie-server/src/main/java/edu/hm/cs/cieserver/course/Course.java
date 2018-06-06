@@ -1,11 +1,14 @@
 package edu.hm.cs.cieserver.course;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.hm.cs.cieserver.campus.Campus;
 import edu.hm.cs.cieserver.department.Department;
 import edu.hm.cs.cieserver.lecturer.Lecturer;
+import edu.hm.cs.cieserver.user.User;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Course representation.
@@ -82,6 +85,20 @@ public class Course {
 	 */
 	@ManyToOne
 	private Campus location;
+
+	/**
+	 * Set of users who selected this course.
+	 */
+	@JsonIgnore
+	@ManyToMany(mappedBy = "selectedCourses")
+	private Set<User> selectedBy;
+
+	/**
+	 * Set of users who favorited this course.
+	 */
+	@JsonIgnore
+	@ManyToMany(mappedBy = "favorizedCourses")
+	private Set<User> favorizedBy;
 
 	public Long getId() {
 		return id;
@@ -193,5 +210,21 @@ public class Course {
 
 	public void setLocation(Campus location) {
 		this.location = location;
+	}
+
+	public Set<User> getSelectedBy() {
+		return selectedBy;
+	}
+
+	public void setSelectedBy(Set<User> selectedBy) {
+		this.selectedBy = selectedBy;
+	}
+
+	public Set<User> getFavorizedBy() {
+		return favorizedBy;
+	}
+
+	public void setFavorizedBy(Set<User> favorizedBy) {
+		this.favorizedBy = this.favorizedBy;
 	}
 }

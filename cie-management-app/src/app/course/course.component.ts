@@ -3,7 +3,7 @@ import {MatDialog, MatSnackBar, MatTableDataSource} from '@angular/material';
 import {Course} from './course';
 import {CourseService} from './course.service';
 import {CourseDialogComponent} from './course-dialog/course-dialog.component';
-import {Department} from '../department/department';
+import {UserService} from '../user/user.service';
 
 @Component({
   selector: 'app-course-management',
@@ -31,7 +31,7 @@ export class CourseComponent implements OnInit {
   courses: Course[] = null;
   dataSource: MatTableDataSource<Course> = null;
 
-  constructor(private snackBar: MatSnackBar, private courseService: CourseService, private dialog: MatDialog) {
+  constructor(private snackBar: MatSnackBar, private courseService: CourseService, private userService: UserService, private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -100,6 +100,18 @@ export class CourseComponent implements OnInit {
           duration: 1000
         });
       });
+  }
+
+  startLottery(): void {
+    console.log('Start lottery');
+  }
+
+  clearCourseSelections(): void {
+    console.log('Clear course selections.');
+  }
+
+  viewSelections(course: Course) {
+
   }
 
 }

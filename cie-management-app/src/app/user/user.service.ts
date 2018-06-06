@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from './user';
+import {Course} from '../course/course';
 
 @Injectable()
 export class UserService {
@@ -32,6 +33,10 @@ export class UserService {
 
   public getCurrentUser() {
     return this.http.get<User>(this.userUrl + '/current');
+  }
+
+  public getUsersWhoSelectedCourse(course: Course) {
+
   }
 
 }

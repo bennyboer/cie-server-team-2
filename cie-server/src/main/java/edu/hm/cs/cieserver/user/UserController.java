@@ -1,12 +1,16 @@
 package edu.hm.cs.cieserver.user;
 
+import edu.hm.cs.cieserver.course.Course;
+import edu.hm.cs.cieserver.course.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Controller handling user purposes.
@@ -23,6 +27,31 @@ public class UserController {
 
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
+
+	@Autowired
+	private CourseRepository courseRepository;
+
+	@GetMapping(path = "/selected-course/{courseId}")
+	public Set<User> findUsersWhoSelectedCourse(@PathVariable("courseId") Long courseId) {
+		Optional<Course> course = courseRepository.findById(courseId);
+
+		if (course.isPresent()) {
+			return course.get().getSelectedBy();
+		}
+
+		return Collections.emptySet();
+	}
+
+	@GetMapping(path = "/favorized-course/{courseId}")
+	public Set<User> findUsersWhoFavorizedCourse(@PathVariable("courseId") Long courseId) {
+		Optional<Course> course = courseRepository.findById(courseId);
+
+		if (course.isPresent()) {
+			return course.get().getFavorizedBy();
+		}
+
+		return Collections.emptySet();
+	}
 
 	@GetMapping(path = "/current")
 	public User currentUser(Principal principal) {

@@ -1,4 +1,6 @@
 <button mat-raised-button (click)="createCourse()"><mat-icon>add</mat-icon> New Course</button>
+<button mat-raised-button (click)="startLottery()">Start Lottery</button>
+<button mat-raised-button (click)="clearCourseSelections()">Clear course selections</button>
 
 <div *ngIf="dataSource != null">
   <mat-form-field style="width: 100%">
@@ -78,6 +80,11 @@
         <button mat-icon-button (click)="deleteCourse(element)">
           <mat-icon>
             delete
+          </mat-icon>
+        </button>
+        <button mat-icon-button (click)="viewSelections(element)">
+          <mat-icon>
+            eye
           </mat-icon>
         </button>
       </td>
