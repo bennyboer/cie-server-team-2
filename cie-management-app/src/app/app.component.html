@@ -1,7 +1,8 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button *ngIf="isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu">
+    <button *ngIf="isLoggedIn" mat-stroked-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
+      Menu
     </button>
     <mat-menu #menu="matMenu" class="main-navigation">
       <button mat-menu-item (click)="navigateTo('/dashboard')"><mat-icon>dashboard</mat-icon> Dashboard</button>
@@ -12,7 +13,8 @@
       <button mat-menu-item (click)="navigateTo('/lecturers')"><mat-icon>supervised_user_circle</mat-icon> Lecturers</button>
       <button (click)="logout()" mat-menu-item><mat-icon>exit_to_app</mat-icon> Logout</button>
     </mat-menu>
-    <span>{{title}}</span>
+    <span class="app-title">{{title}}</span>
+    <button mat-stroked-button (click)="sendNotification()"><mat-icon>cast</mat-icon> Send notification</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <div protected class="main-content">

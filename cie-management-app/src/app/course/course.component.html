@@ -1,6 +1,9 @@
-<button mat-raised-button (click)="createCourse()"><mat-icon>add</mat-icon> New Course</button>
-<button mat-raised-button (click)="startLottery()">Start Lottery</button>
-<button mat-raised-button (click)="clearCourseSelections()">Clear course selections</button>
+<div class="control-buttons">
+  <button mat-raised-button (click)="createCourse()"><mat-icon>add</mat-icon> New Course</button>
+  <button mat-raised-button (click)="startLottery()"><mat-icon>build</mat-icon> Start Lottery</button>
+  <button mat-raised-button (click)="clearCourseSelections()"><mat-icon>clear_all</mat-icon> Clear course selections</button>
+  <button mat-raised-button (click)="importCourses()"><mat-icon>import_export</mat-icon> Import</button>
+</div>
 
 <div *ngIf="dataSource != null">
   <mat-form-field style="width: 100%">
@@ -21,7 +24,7 @@
 
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>Description</th>
-      <td mat-cell *matCellDef="let element">{{element.description}}</td>
+      <td mat-cell *matCellDef="let element">{{element.description | truncate:[30, '...']}}</td>
     </ng-container>
 
     <ng-container matColumnDef="room">
@@ -82,10 +85,11 @@
             delete
           </mat-icon>
         </button>
-        <button mat-icon-button (click)="viewSelections(element)">
+        <button mat-raised-button (click)="viewSelections(element)">
           <mat-icon>
-            eye
+            how_to_reg
           </mat-icon>
+          Show selections
         </button>
       </td>
     </ng-container>
