@@ -4,6 +4,8 @@ import {Course} from './course';
 import {CourseService} from './course.service';
 import {CourseDialogComponent} from './course-dialog/course-dialog.component';
 import {UserService} from '../user/user.service';
+import {CourseSelectionsDialogComponent} from './course-selections-dialog/course-selections-dialog.component';
+import {YesNoDialogComponent} from '../util/yes-no-dialog/yes-no-dialog.component';
 
 @Component({
   selector: 'app-course-management',
@@ -31,7 +33,10 @@ export class CourseComponent implements OnInit {
   courses: Course[] = null;
   dataSource: MatTableDataSource<Course> = null;
 
-  constructor(private snackBar: MatSnackBar, private courseService: CourseService, private userService: UserService, private dialog: MatDialog) {
+  constructor(private snackBar: MatSnackBar,
+              private courseService: CourseService,
+              private userService: UserService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -50,8 +55,8 @@ export class CourseComponent implements OnInit {
 
   createCourse() {
     const dialogRef = this.dialog.open(CourseDialogComponent, {
-      height: '80%',
-      width: '50%',
+      height: '400px',
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -102,16 +107,43 @@ export class CourseComponent implements OnInit {
       });
   }
 
-  startLottery(): void {
-    console.log('Start lottery');
-  }
-
   clearCourseSelections(): void {
-    console.log('Clear course selections.');
+    const dialogRef = this.dialog.open(YesNoDialogComponent, {
+      data: 'Do you really want to delete all course selections? This cannot be undone.'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.courseService.deleteSelections().subscribe(success => {
+          if (success) {
+            this.snackBar.open('Deleted all course selections.', 'OK', {
+              duration: 3000
+            });
+          }
+        });
+      }
+    });
   }
 
   viewSelections(course: Course) {
+    this.userService.getUsersWhoSelectedCourse(course).subscribe(users => {
+      this.dialog.open(CourseSelectionsDialogComponent, {
+        width: '500px',
+        data: users
+      });
+    });
+  }
 
+  importCourses() {
+    this.snackBar.open('Import courses not yet implemented', 'OK', {
+      duration: 3000
+    });
+  }
+
+  startLottery(): void {
+    this.snackBar.open('Lottery not yet implemented', 'OK', {
+      duration: 3000
+    });
   }
 
 }

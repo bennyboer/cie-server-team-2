@@ -86,8 +86,8 @@ public class CourseController {
 		Optional<Course> course = courseRepository.findById(courseId);
 
 		if (course.isPresent()) {
-			course.get().getSelectedBy().add(user); // Add user to selected set.
-			courseRepository.save(course.get());
+			user.getSelectedCourses().add(course.get());
+			userRepository.save(user);
 
 			return true;
 		}
@@ -102,8 +102,8 @@ public class CourseController {
 		Optional<Course> course = courseRepository.findById(courseId);
 
 		if (course.isPresent()) {
-			course.get().getFavorizedBy().add(user); // Add user to favorized set.
-			courseRepository.save(course.get());
+			user.getFavorizedCourses().add(course.get());
+			userRepository.save(user);
 
 			return true;
 		}
@@ -123,6 +123,30 @@ public class CourseController {
 		course.ifPresent(u -> courseRepository.delete(u));
 
 		return course.get();
+	}
+
+	@DeleteMapping(path = {"/delete-selections"})
+	public boolean deleteCourseSelections() {
+		List<User> users = userRepository.findAll();
+
+		for (User user : users) {
+			user.getSelectedCourses().clear();
+			userRepository.save(user);
+		}
+
+		return true;
+	}
+
+	@DeleteMapping(path = {"/delete-favorites"})
+	public boolean deleteCourseFavorites() {
+		List<User> users = userRepository.findAll();
+
+		for (User user : users) {
+			user.getFavorizedCourses().clear();
+			userRepository.save(user);
+		}
+
+		return true;
 	}
 
 }

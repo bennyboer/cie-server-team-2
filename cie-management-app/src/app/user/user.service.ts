@@ -36,7 +36,7 @@ export class UserService {
   }
 
   public getUsersWhoSelectedCourse(course: Course) {
-
+    return this.http.get<User[]>(`${this.userUrl}/selected-course/${course.id}`);
   }
 
 }

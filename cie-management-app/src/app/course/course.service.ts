@@ -30,4 +30,8 @@ export class CourseService {
     return this.http.put(this.apiUrl, course);
   }
 
+  public deleteSelections() {
+    return this.http.delete<boolean>(`${this.apiUrl}/delete-selections`);
+  }
+
 }
