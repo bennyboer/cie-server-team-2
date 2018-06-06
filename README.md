@@ -5,8 +5,14 @@
 ## Getting started
 
 ### Development
-- Launch the Spring server with `CieServerApplication.java` in the `cie-server` subfolder
-- The angular app is independent from the Spring server, so you can enter the `cie-management-app` folder and run `npm start` from the command line. This has the oppurtunity of not having to rebuild everything to test something as well as the possibility to develop fast and debug the angular easy.
+
+#### In subfolder `cie-server`:
+- Let maven install
+- Launch the Spring server with `CieServerApplication.java`
+
+#### In subfolder `cie-management-app`:
+- Run `npm install` from the command line -> Dependencies will be installed
+- Run `npm start` from the command line -> Development server is started with proxy so that all HTTP Requests are redirected to the server instead of `localhost:4200` (The default ng serve address)
 
 ### Release
 In order to build the server and web management interface you can just use the maven goal `clean install -Prelease` (with the `release` profile). Run the maven command in the `cie-server` subfolder. The build process will automatically build the web application and include it into the `resources` folder of the spring application. The resulting server application will be placed in the `cie-server/target` folder.
