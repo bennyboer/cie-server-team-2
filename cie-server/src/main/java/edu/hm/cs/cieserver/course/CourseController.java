@@ -79,6 +79,38 @@ public class CourseController {
 		return courseRepository.save(course);
 	}
 
+	@PostMapping(path = "/select/{courseId}")
+	public boolean select(@PathVariable("courseId") Long courseId, Principal principal) {
+		User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+
+		Optional<Course> course = courseRepository.findById(courseId);
+
+		if (course.isPresent()) {
+			course.get().getSelectedBy().add(user); // Add user to selected set.
+			courseRepository.save(course.get());
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@PostMapping(path = "/favorize/{courseId}")
+	public boolean favorize(@PathVariable("courseId") Long courseId, Principal principal) {
+		User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+
+		Optional<Course> course = courseRepository.findById(courseId);
+
+		if (course.isPresent()) {
+			course.get().getFavorizedBy().add(user); // Add user to favorized set.
+			courseRepository.save(course.get());
+
+			return true;
+		}
+
+		return false;
+	}
+
 	@PutMapping
 	public Course update(@RequestBody Course course) {
 		return courseRepository.save(course);
