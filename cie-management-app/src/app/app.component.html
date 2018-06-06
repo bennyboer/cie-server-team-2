@@ -11,10 +11,12 @@
       <button mat-menu-item (click)="navigateTo('/locations')"><mat-icon>place</mat-icon> Campuses</button>
       <button mat-menu-item (click)="navigateTo('/departments')"><mat-icon>group_work</mat-icon> Departments</button>
       <button mat-menu-item (click)="navigateTo('/lecturers')"><mat-icon>supervised_user_circle</mat-icon> Lecturers</button>
-      <button (click)="logout()" mat-menu-item><mat-icon>exit_to_app</mat-icon> Logout</button>
     </mat-menu>
     <span class="app-title">{{title}}</span>
-    <button mat-stroked-button (click)="sendNotification()"><mat-icon>cast</mat-icon> Send notification</button>
+    <span *ngIf="isLoggedIn" class="control-buttons">
+      <button mat-stroked-button (click)="sendNotification()"><mat-icon>cast</mat-icon> Send notification</button>
+      <button mat-stroked-button (click)="logout()"><mat-icon>exit_to_app</mat-icon> Logout</button>
+    </span>
   </mat-toolbar-row>
 </mat-toolbar>
 <div protected class="main-content">

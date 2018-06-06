@@ -11,7 +11,7 @@ import {NotificationDialogComponent} from './notifications/notification-dialog/n
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  title = 'CiE - Management Interface';
+  title = 'Courses in English';
 
   isLoggedIn = false;
   private loggedInObservable: any = null;

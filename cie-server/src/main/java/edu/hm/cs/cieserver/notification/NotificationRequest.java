@@ -5,38 +5,45 @@ import java.util.Map;
 
 public class NotificationRequest {
 
-    //private String to;
-    private String priority = "normal";
-    private Map<String, String> notification;
-    private Map<String, String> data = null;
+	//private String to;
 
-    public NotificationRequest(String title, String content) {
-        notification = new HashMap<>();
-        notification.put("title", title);
-        notification.put("body", content);
-    }
+	private String priority = "normal";
 
-    public String getPriority() {
-        return priority;
-    }
+	private Map<String, String> notification;
 
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
+	private Map<String, String> data = null;
 
-    public Map<String, String> getNotification() {
-        return notification;
-    }
+	public NotificationRequest() {
+		// Default constructor for jackson
+	}
 
-    public void setNotification(Map<String, String> notification) {
-        this.notification = notification;
-    }
+	public NotificationRequest(String title, String content) {
+		notification = new HashMap<>();
+		notification.put("title", title);
+		notification.put("body", content);
+	}
 
-    public Map<String, String> getData() {
-        return data;
-    }
+	public String getPriority() {
+		return priority;
+	}
 
-    public void setData(Map<String, String> data) {
-        this.data = data;
-    }
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	public Map<String, String> getNotification() {
+		return notification;
+	}
+
+	public void setNotification(Map<String, String> notification) {
+		this.notification = notification;
+	}
+
+	public Map<String, String> getData() {
+		return data;
+	}
+
+	public void setData(Map<String, String> data) {
+		this.data = data;
+	}
 }
