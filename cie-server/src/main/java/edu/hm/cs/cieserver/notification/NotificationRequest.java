@@ -1,16 +1,25 @@
 package edu.hm.cs.cieserver.notification;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 public class NotificationRequest {
 
-    private String to;
-    private String priority = "normal";
+    private String to = "/topics/all";
+
+    private String priority = "high";
+
     private Map<String, String> notification;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, String> data;
+
+    public NotificationRequest() {
+        // Default constructor needed for jackson.
+    }
 
     public NotificationRequest(String title, String content, Optional<String> to) {
         notification = new HashMap<>();

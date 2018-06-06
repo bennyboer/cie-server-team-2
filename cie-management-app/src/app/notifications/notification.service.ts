@@ -14,7 +14,7 @@ export class NotificationService {
 
   public sendNotification(subject: string, content: string) {
     const notificationRequest: NotificationRequest = new NotificationRequest();
-    notificationRequest.priority = 'normal';
+    notificationRequest.priority = 'high';
     notificationRequest.notification = new Notification(subject, content);
     notificationRequest.data = null;
 
