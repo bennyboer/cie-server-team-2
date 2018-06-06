@@ -29,9 +29,10 @@ import {LecturerService} from './lecturer/lecturer.service';
 import {DepartmentService} from './department/department.service';
 import {CampusService} from './campus/campus.service';
 import {CourseSelectionsDialogComponent} from './course/course-selections-dialog/course-selections-dialog.component';
-import { YesNoDialogComponent } from './util/yes-no-dialog/yes-no-dialog.component';
-import { TruncatePipe } from './pipes/truncate/truncate.pipe';
-import { NotificationDialogComponent } from './notifications/notification-dialog/notification-dialog.component';
+import {YesNoDialogComponent} from './util/yes-no-dialog/yes-no-dialog.component';
+import {TruncatePipe} from './pipes/truncate/truncate.pipe';
+import {NotificationDialogComponent} from './notifications/notification-dialog/notification-dialog.component';
+import {NotificationService} from './notifications/notification.service';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -90,7 +91,8 @@ export function tokenGetter() {
     CourseService,
     LecturerService,
     DepartmentService,
-    CampusService
+    CampusService,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

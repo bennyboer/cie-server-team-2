@@ -13,23 +13,22 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class PushNotificationService {
 
-    @Value("${app.cie-server.firebase-server-key}")
-    private String FIREBASE_SERVER_KEY;
-    private static final String FIREBASE_API_URL = "https://fcm.googleapis.com/fcm/send";
+	@Value("${app.cie-server.firebase-server-key}")
+	private String firebaseServerKey;
+	private static final String FIREBASE_API_URL = "https://fcm.googleapis.com/fcm/send";
 
-    @Async
-    public CompletableFuture<String> send(HttpEntity<String> entity) {
+	@Async
+	public CompletableFuture<String> send(HttpEntity<String> entity) {
+		RestTemplate restTemplate = new RestTemplate();
 
-        RestTemplate restTemplate = new RestTemplate();
+		ArrayList<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+		interceptors.add(new HeaderInterceptor("Authorization", "key=" + firebaseServerKey));
+		interceptors.add(new HeaderInterceptor("Content-Type", "application/json"));
+		restTemplate.setInterceptors(interceptors);
 
-        ArrayList<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
-        interceptors.add(new HeaderInterceptor("Authorization", "key=" + FIREBASE_SERVER_KEY));
-        interceptors.add(new HeaderInterceptor("Content-Type", "application/json"));
-        restTemplate.setInterceptors(interceptors);
+		String firebaseResponse = restTemplate.postForObject(FIREBASE_API_URL, entity, String.class);
 
-        String firebaseResponse = restTemplate.postForObject(FIREBASE_API_URL, entity, String.class);
-
-        return CompletableFuture.completedFuture(firebaseResponse);
-    }
+		return CompletableFuture.completedFuture(firebaseResponse);
+	}
 
 }
