@@ -1,5 +1,6 @@
 package edu.hm.cs.cieserver.notification;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.scheduling.annotation.Async;
@@ -12,7 +13,8 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class PushNotificationService {
 
-    private static final String FIREBASE_SERVER_KEY = "AAAATH837tA:APA91bHAN-EFtNCtNea1xbK_WFcM8S7LFKerTBHMekGuytXkDZFEj6XqUf9CkPkaoTQMUz_J6mVGNFvT9MhiA2yP0iwJtUBYYUamJU5JNXsnCx5FTEo16kgw2oJTIbL5u19yJ1VA1cbD";
+    @Value("${app.cie-server.firebase-server-key}")
+    private String FIREBASE_SERVER_KEY;
     private static final String FIREBASE_API_URL = "https://fcm.googleapis.com/fcm/send";
 
     @Async
