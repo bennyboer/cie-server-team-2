@@ -100,6 +100,38 @@ public class CourseController {
 		return false;
 	}
 
+	@PostMapping(path = "/deselect/{courseId}")
+	public boolean deselect(@PathVariable("courseId") Long courseId, Principal principal) {
+		User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+
+		Optional<Course> course = courseRepository.findById(courseId);
+
+		if (course.isPresent()) {
+			user.getSelectedCourses().remove(course.get());
+			userRepository.save(user);
+
+			return true;
+		}
+
+		return false;
+	}
+
+	@PostMapping(path = "/unfavorize/{courseId}")
+	public boolean unfavorize(@PathVariable("courseId") Long courseId, Principal principal) {
+		User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+
+		Optional<Course> course = courseRepository.findById(courseId);
+
+		if (course.isPresent()) {
+			user.getFavorizedCourses().remove(course.get());
+			userRepository.save(user);
+
+			return true;
+		}
+
+		return false;
+	}
+
 	@PostMapping(path = "/favorize/{courseId}")
 	public boolean favorize(@PathVariable("courseId") Long courseId, Principal principal) {
 		User user = (User) userDetailsService.loadUserByUsername(principal.getName());
