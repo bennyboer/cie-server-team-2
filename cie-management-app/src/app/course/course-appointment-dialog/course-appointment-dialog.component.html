@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Edit' : 'Create' }} Appointment</h2>
+<form>
+  <mat-dialog-content>
+
+    <mat-form-field>
+      <input matInput [(ngModel)]="date" placeholder="Date" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" name="appointment">
+      <owl-date-time #dt1></owl-date-time>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" placeholder="Duration (in minutes)" [(ngModel)]="duration" name="duration">
+    </mat-form-field>
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="finish()"><mat-icon>keyboard_return</mat-icon>Save</button>
+  </mat-dialog-actions>
+
+</form>

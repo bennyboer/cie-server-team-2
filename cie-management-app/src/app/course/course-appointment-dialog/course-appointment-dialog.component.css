@@ -5,4 +5,5 @@
 
 .app-date-time-field > * {
   flex: 1 1 auto;
+  padding: 0 0.1em;
 }

@@ -6,6 +6,7 @@ import {CourseDialogComponent} from './course-dialog/course-dialog.component';
 import {UserService} from '../user/user.service';
 import {CourseSelectionsDialogComponent} from './course-selections-dialog/course-selections-dialog.component';
 import {YesNoDialogComponent} from '../util/yes-no-dialog/yes-no-dialog.component';
+import {CourseAppointmentService} from './course-appointment.service';
 
 @Component({
   selector: 'app-course-management',
@@ -36,6 +37,7 @@ export class CourseComponent implements OnInit {
   constructor(private snackBar: MatSnackBar,
               private courseService: CourseService,
               private userService: UserService,
+              private courseAppointmentService: CourseAppointmentService,
               private dialog: MatDialog) {
   }
 
@@ -61,6 +63,8 @@ export class CourseComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result != null) {
+        const appointments = result.courseAppointments;
+
         this.courseService.createCourse(result).subscribe((c: Course) => {
           this.snackBar.open('Course with id ' + c.id + ' has been created.', 'OK', {
             duration: 2000
@@ -68,6 +72,11 @@ export class CourseComponent implements OnInit {
 
           this.courses.push(c);
           this.dataSource = new MatTableDataSource<Course>(this.courses);
+
+          // Update appointments on server side.
+          this.courseAppointmentService.updateCourseAppointments(c.id, appointments).subscribe(apps => {
+            c.courseAppointments = apps;
+          });
         });
       }
     });
@@ -82,6 +91,8 @@ export class CourseComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result != null) {
+        const appointments = result.courseAppointments;
+
         this.courseService.updateCourse(result).subscribe((c: Course) => {
           this.snackBar.open('Course with id ' + c.id + ' has been updated.', 'OK', {
             duration: 2000
@@ -90,6 +101,11 @@ export class CourseComponent implements OnInit {
           this.courses = this.courses.filter(cou => cou.id !== c.id);
           this.courses.push(c);
           this.dataSource = new MatTableDataSource<Course>(this.courses);
+
+          // Update appointments on server side.
+          this.courseAppointmentService.updateCourseAppointments(c.id, appointments).subscribe(apps => {
+            c.courseAppointments = apps;
+          });
         });
       }
     });

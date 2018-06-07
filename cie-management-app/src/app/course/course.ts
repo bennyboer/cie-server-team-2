@@ -3,6 +3,7 @@ import {Campus} from '../campus/campus';
 import {Department} from '../department/department';
 
 export class Course {
+
   id: number;
   name: string;
   description: string;
@@ -11,10 +12,22 @@ export class Course {
   ects: number;
   usCredits: number;
   semesterWeekHours: number;
-  dates: Date;
   duration: number;
   courseStatus: string;
+
   lecturer: Lecturer;
   department: Department;
   location: Campus;
+  courseAppointments: CourseAppointment[];
+
+}
+
+export class CourseAppointment {
+
+  id: number;
+  weekday: number;
+  startHour: number;
+  startMinute: number;
+  duration: number;
+
 }

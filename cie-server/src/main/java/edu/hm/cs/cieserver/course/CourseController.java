@@ -1,5 +1,7 @@
 package edu.hm.cs.cieserver.course;
 
+import edu.hm.cs.cieserver.course.date.CourseAppointment;
+import edu.hm.cs.cieserver.course.date.CourseAppointmentRepository;
 import edu.hm.cs.cieserver.user.User;
 import edu.hm.cs.cieserver.user.UserDetailsServiceImpl;
 import edu.hm.cs.cieserver.user.UserRepository;
@@ -27,6 +29,9 @@ public class CourseController {
 
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
+
+	@Autowired
+	private CourseAppointmentRepository courseAppointmentRepository;
 
 	@GetMapping(path = "/selected/{userId}")
 	public Set<Course> findSelectedCoursesByUserId(@PathVariable("userId") Long userId) {

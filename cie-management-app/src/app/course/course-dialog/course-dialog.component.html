@@ -1,3 +1,4 @@
+<h2 mat-dialog-title>{{isEdit ? 'Edit' : 'Create'}} Course</h2>
 <form>
   <mat-form-field style="width: 100%">
     <input matInput placeholder="Name" [(ngModel)]="course.name" name="name">
@@ -26,8 +27,6 @@
   <mat-form-field style="width: 100%">
     <input matInput placeholder="SWS" [(ngModel)]="course.semesterWeekHours" name="sws">
   </mat-form-field>
-
-  <!-- TODO Dates and duration -->
 
   <mat-form-field style="width: 100%">
     <mat-select placeholder="Course status" [(value)]="course.courseStatus">
@@ -61,6 +60,37 @@
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button (click)="finish()"><mat-icon>create</mat-icon> Finish</button>
+  <h3>Course appointments:</h3>
+  <div *ngFor="let appointment of appointments; let i = index" [attr.data-index]="i" class="app-date-time-field">
+    {{ i + 1 }}
+    <mat-icon>keyboard_arrow_right</mat-icon>
 
+    <span>
+      Date:&nbsp;
+    </span>
+    <b *ngIf="appointment.date != null">
+      {{ weekdays[appointment.date.getDay()] }} - {{ appointment.date.getHours() + ':' + appointment.date.getMinutes() }}
+    </b>
+
+    <span>
+      Duration:&nbsp;
+    </span>
+    <b>
+      {{ appointment.duration }}
+    </b>
+
+    <button mat-icon-button (click)="editAppointment(appointment)"><mat-icon>create</mat-icon></button>
+    <button mat-icon-button (click)="deleteAppointment(appointment)"><mat-icon>delete</mat-icon></button>
+  </div>
+
+  <div>
+    <button mat-stroked-button (click)="addAppointment()"><mat-icon>add</mat-icon> Another appointment</button>
+  </div>
+
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="finish()">
+      <mat-icon>create</mat-icon>
+      Finish
+    </button>
+  </mat-dialog-actions>
 </form>

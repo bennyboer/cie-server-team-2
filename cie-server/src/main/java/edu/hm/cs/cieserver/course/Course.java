@@ -2,6 +2,7 @@ package edu.hm.cs.cieserver.course;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.hm.cs.cieserver.campus.Campus;
+import edu.hm.cs.cieserver.course.date.CourseAppointment;
 import edu.hm.cs.cieserver.department.Department;
 import edu.hm.cs.cieserver.lecturer.Lecturer;
 import edu.hm.cs.cieserver.user.User;
@@ -85,6 +86,12 @@ public class Course {
 	 */
 	@ManyToOne
 	private Campus location;
+
+	/**
+	 * Dates and durations of the course.
+	 */
+	@OneToMany(mappedBy = "course")
+	private Set<CourseAppointment> courseAppointments;
 
 	/**
 	 * Set of users who selected this course.
@@ -227,4 +234,13 @@ public class Course {
 	public void setFavorizedBy(Set<User> favorizedBy) {
 		this.favorizedBy = this.favorizedBy;
 	}
+
+	public Set<CourseAppointment> getCourseAppointments() {
+		return courseAppointments;
+	}
+
+	public void setCourseAppointments(Set<CourseAppointment> courseAppointments) {
+		this.courseAppointments = courseAppointments;
+	}
+
 }

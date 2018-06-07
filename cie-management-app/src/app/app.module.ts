@@ -33,6 +33,9 @@ import {YesNoDialogComponent} from './util/yes-no-dialog/yes-no-dialog.component
 import {TruncatePipe} from './pipes/truncate/truncate.pipe';
 import {NotificationDialogComponent} from './notifications/notification-dialog/notification-dialog.component';
 import {NotificationService} from './notifications/notification.service';
+import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
+import {CourseAppointmentDialogComponent} from './course/course-appointment-dialog/course-appointment-dialog.component';
+import {CourseAppointmentService} from './course/course-appointment.service';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -59,7 +62,8 @@ export function tokenGetter() {
     CourseSelectionsDialogComponent,
     YesNoDialogComponent,
     TruncatePipe,
-    NotificationDialogComponent
+    NotificationDialogComponent,
+    CourseAppointmentDialogComponent
   ],
   entryComponents: [
     CourseDialogComponent,
@@ -68,7 +72,8 @@ export function tokenGetter() {
     LecturerDialogComponent,
     CourseSelectionsDialogComponent,
     YesNoDialogComponent,
-    NotificationDialogComponent
+    NotificationDialogComponent,
+    CourseAppointmentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +83,8 @@ export function tokenGetter() {
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CustomMaterialModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -92,7 +99,8 @@ export function tokenGetter() {
     LecturerService,
     DepartmentService,
     CampusService,
-    NotificationService
+    NotificationService,
+    CourseAppointmentService
   ],
   bootstrap: [AppComponent]
 })
