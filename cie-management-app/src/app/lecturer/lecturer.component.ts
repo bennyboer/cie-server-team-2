@@ -35,7 +35,6 @@ export class LecturerComponent implements OnInit {
 
   createLecturer() {
     const dialogRef = this.dialog.open(LecturerDialogComponent, {
-      height: '400px',
       width: '500px',
     });
 
@@ -55,7 +54,6 @@ export class LecturerComponent implements OnInit {
 
   editLecturer(lecturer: Lecturer) {
     const dialogRef = this.dialog.open(LecturerDialogComponent, {
-      height: '400px',
       width: '500px',
       data: lecturer
     });

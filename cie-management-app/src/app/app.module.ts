@@ -36,6 +36,8 @@ import {NotificationService} from './notifications/notification.service';
 import {OwlDateTimeModule, OwlNativeDateTimeModule} from 'ng-pick-datetime';
 import {CourseAppointmentDialogComponent} from './course/course-appointment-dialog/course-appointment-dialog.component';
 import {CourseAppointmentService} from './course/course-appointment.service';
+import {HexPipe} from './pipes/hexpipe/hex.pipe';
+import {ColorPickerModule} from 'ngx-color-picker';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -62,6 +64,7 @@ export function tokenGetter() {
     CourseSelectionsDialogComponent,
     YesNoDialogComponent,
     TruncatePipe,
+    HexPipe,
     NotificationDialogComponent,
     CourseAppointmentDialogComponent
   ],
@@ -85,6 +88,7 @@ export function tokenGetter() {
     CustomMaterialModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    ColorPickerModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

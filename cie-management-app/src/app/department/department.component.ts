@@ -35,8 +35,7 @@ export class DepartmentComponent implements OnInit {
 
   createDepartment() {
     const dialogRef = this.dialog.open(DepartmentDialogComponent, {
-      height: '400px',
-      width: '500px',
+      width: '500px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -55,7 +54,6 @@ export class DepartmentComponent implements OnInit {
 
   editDepartment(department: Department) {
     const dialogRef = this.dialog.open(DepartmentDialogComponent, {
-      height: '400px',
       width: '500px',
       data: department
     });
@@ -85,6 +83,10 @@ export class DepartmentComponent implements OnInit {
           duration: 1000
         });
       });
+  }
+
+  getHexStringFromInt(color: number): string {
+    return '#' + color.toString(16).padStart(6, '0');
   }
 
 }

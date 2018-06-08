@@ -35,7 +35,6 @@ export class CampusComponent implements OnInit {
 
   createCampus() {
     const dialogRef = this.dialog.open(CampusDialogComponent, {
-      height: '400px',
       width: '500px',
     });
 
@@ -55,7 +54,6 @@ export class CampusComponent implements OnInit {
 
   editCampus(campus: Campus) {
     const dialogRef = this.dialog.open(CampusDialogComponent, {
-      height: '400px',
       width: '500px',
       data: campus
     });
