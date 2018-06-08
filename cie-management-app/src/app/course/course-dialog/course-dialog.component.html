@@ -5,7 +5,8 @@
   </mat-form-field>
 
   <mat-form-field style="width: 100%">
-    <textarea matInput placeholder="Description" [(ngModel)]="course.description" name="description"></textarea>
+    <textarea matInput placeholder="Description" #descriptioncontent [(ngModel)]="course.description" maxlength="3000" name="description"></textarea>
+    <mat-hint align="end">{{ descriptioncontent.value.length }} / 3000</mat-hint>
   </mat-form-field>
 
   <mat-form-field style="width: 100%">

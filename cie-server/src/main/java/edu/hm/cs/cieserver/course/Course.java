@@ -26,6 +26,10 @@ public class Course {
 	 */
 	private String name;
 
+	/**
+	 * Description of the course.
+	 */
+	@Column(length = 3000)
 	private String description;
 
 	/**
