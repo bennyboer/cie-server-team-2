@@ -3,6 +3,8 @@ package edu.hm.cs.cieserver.user;
 import edu.hm.cs.cieserver.course.Course;
 import edu.hm.cs.cieserver.course.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,10 +81,16 @@ public class UserController {
 	}
 
 	@PutMapping
-	public User update(@RequestBody User user) {
+	public ResponseEntity<User> update(@RequestBody User user, Principal principal) {
 		User existing = findOne(user.getId());
+		User userRequestingUpdate = (User) userDetailsService.loadUserByUsername(principal.getName());
 
 		if (existing != null) {
+			if (user.getIsAdministrator() && !userRequestingUpdate.getId().equals(existing.getId())) {
+				// Admins can only be updated by themselves, not by other admins.
+				return new ResponseEntity<>(new User(), HttpStatus.FORBIDDEN);
+			}
+
 			existing.setFirstName(user.getFirstName());
 			existing.setLastName(user.getLastName());
 			existing.setEmail(user.getEmail());
@@ -92,19 +100,38 @@ public class UserController {
 				existing.setPassword(passwordEncoder.encode(user.getPassword()));
 			}
 
-			return userRepository.save(existing);
+			return new ResponseEntity<>(userRepository.save(existing), HttpStatus.OK);
 		}
 
-		return null;
+		return new ResponseEntity<>(new User(), HttpStatus.FORBIDDEN);
 	}
 
 	@DeleteMapping(path = {"/{id}"})
-	public User delete(@PathVariable("id") Long id) {
-		Optional<User> user = userRepository.findById(id);
+	public ResponseEntity<?> delete(@PathVariable("id") Long id, Principal principal) {
+		HttpStatus status = HttpStatus.OK;
 
-		user.ifPresent(u -> userRepository.delete(u));
+		if (principal != null) {
+			User userRequestingDeletion = (User) userDetailsService.loadUserByUsername(principal.getName());
 
-		return user.get();
+			Optional<User> userToDelete = userRepository.findById(id);
+
+			if (userToDelete.isPresent()) {
+				User user = userToDelete.get();
+
+				if (user.getIsAdministrator()) {
+					// Users who are admins can only be deleted by themselves and not by other admins.
+					if (user.getId().equals(userRequestingDeletion.getId())) {
+						userRepository.delete(user);
+					} else {
+						status = HttpStatus.FORBIDDEN;
+					}
+				} else {
+					userRepository.delete(user);
+				}
+			}
+		}
+
+		return new ResponseEntity<>(null, status);
 	}
 
 	@GetMapping

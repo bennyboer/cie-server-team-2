@@ -7,7 +7,7 @@ import {UserService} from './user/user.service';
 import {AppRoutingModule} from './app.routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {JwtModule} from '@auth0/angular-jwt';
+import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
 import {LoginComponent} from './login/login.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {ProtectedDirective} from './directives/protected.directive';
@@ -39,8 +39,18 @@ import {CourseAppointmentService} from './course/course-appointment.service';
 import {HexPipe} from './pipes/hexpipe/hex.pipe';
 import {ColorPickerModule} from 'ngx-color-picker';
 
+const helper = new JwtHelperService();
+
 export function tokenGetter() {
-  return localStorage.getItem('access_token');
+  let accessToken = localStorage.getItem('access_token');
+
+  if (accessToken !== undefined && accessToken !== null && helper.isTokenExpired(accessToken)) {
+    console.log('EXPIRED TOKEN -> RESETTING IT TO NULL');
+    localStorage.removeItem('access_token');
+    accessToken = null;
+  }
+
+  return accessToken;
 }
 
 @NgModule({

@@ -12,6 +12,7 @@ import {MatSnackBar, MatTableDataSource} from '@angular/material';
 export class UserTableComponent implements OnInit {
 
   users: User[] = null;
+  currentUser: User = null;
 
   displayedColumns = ['id', 'firstName', 'lastName', 'email', 'admin', 'actions'];
   dataSource: MatTableDataSource<User> = null;
@@ -25,6 +26,10 @@ export class UserTableComponent implements OnInit {
         this.users = data;
         this.dataSource = new MatTableDataSource<User>(this.users);
       });
+
+    this.userService.getCurrentUser().subscribe(user => {
+      this.currentUser = user;
+    });
   }
 
   deleteUser(user: User): void {
