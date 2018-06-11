@@ -45,9 +45,11 @@ export function tokenGetter() {
   let accessToken = localStorage.getItem('access_token');
 
   if (accessToken !== undefined && accessToken !== null && helper.isTokenExpired(accessToken)) {
-    console.log('EXPIRED TOKEN -> RESETTING IT TO NULL');
     localStorage.removeItem('access_token');
     accessToken = null;
+
+    alert('Your login session expired, reloading the page now.');
+    window.location.reload(); // Reload page.
   }
 
   return accessToken;
