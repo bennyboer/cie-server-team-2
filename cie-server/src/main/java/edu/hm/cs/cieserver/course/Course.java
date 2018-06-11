@@ -58,16 +58,6 @@ public class Course {
 	private double semesterWeekHours;
 
 	/**
-	 * When the course is.
-	 */
-	private Date[] dates;
-
-	/**
-	 * Duration in minutes.
-	 */
-	private int duration;
-
-	/**
 	 * Status of the course.
 	 */
 	@Enumerated(EnumType.STRING)
@@ -173,22 +163,6 @@ public class Course {
 
 	public void setSemesterWeekHours(double semesterWeekHours) {
 		this.semesterWeekHours = semesterWeekHours;
-	}
-
-	public Date[] getDates() {
-		return dates;
-	}
-
-	public void setDates(Date[] dates) {
-		this.dates = dates;
-	}
-
-	public int getDuration() {
-		return duration;
-	}
-
-	public void setDuration(int duration) {
-		this.duration = duration;
 	}
 
 	public CourseStatus getCourseStatus() {
