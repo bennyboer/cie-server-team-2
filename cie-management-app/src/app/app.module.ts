@@ -38,6 +38,8 @@ import {CourseAppointmentDialogComponent} from './course/course-appointment-dial
 import {CourseAppointmentService} from './course/course-appointment.service';
 import {HexPipe} from './pipes/hexpipe/hex.pipe';
 import {ColorPickerModule} from 'ngx-color-picker';
+import {SettingsService} from './util/settings/settings.service';
+import { SettingsComponent } from './settings/settings.component';
 
 const helper = new JwtHelperService();
 
@@ -78,7 +80,8 @@ export function tokenGetter() {
     TruncatePipe,
     HexPipe,
     NotificationDialogComponent,
-    CourseAppointmentDialogComponent
+    CourseAppointmentDialogComponent,
+    SettingsComponent
   ],
   entryComponents: [
     CourseDialogComponent,
@@ -116,7 +119,8 @@ export function tokenGetter() {
     DepartmentService,
     CampusService,
     NotificationService,
-    CourseAppointmentService
+    CourseAppointmentService,
+    SettingsService
   ],
   bootstrap: [AppComponent]
 })

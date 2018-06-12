@@ -10,6 +10,7 @@ import {CourseComponent} from './course/course.component';
 import {CampusComponent} from './campus/campus.component';
 import {DepartmentComponent} from './department/department.component';
 import {LecturerComponent} from './lecturer/lecturer.component';
+import {SettingsComponent} from './settings/settings.component';
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'locations', component: CampusComponent},
   {path: 'departments', component: DepartmentComponent},
   {path: 'lecturers', component: LecturerComponent},
+  {path: 'settings', component: SettingsComponent},
   {
     path: 'users', component: UserComponent, children: [
       {path: '', redirectTo: 'overview', pathMatch: 'full'},

@@ -15,6 +15,7 @@
     <span class="app-title">{{title}}</span>
     <span *ngIf="isLoggedIn" class="control-buttons">
       <button mat-stroked-button (click)="sendNotification()"><mat-icon>cast</mat-icon> Send notification</button>
+      <button mat-stroked-button (click)="navigateTo('/settings')"><mat-icon>settings</mat-icon> Settings</button>
       <button mat-stroked-button (click)="logout()"><mat-icon>exit_to_app</mat-icon> Logout</button>
     </span>
   </mat-toolbar-row>
