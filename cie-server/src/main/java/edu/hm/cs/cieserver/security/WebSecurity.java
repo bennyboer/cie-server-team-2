@@ -106,6 +106,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.GET, "/api/users/current").authenticated()
 				.antMatchers("/api/users/**").hasAuthority(User.ROLE_ADMIN)
+
+				// Swagger 2 REST API documentation
+				.antMatchers("/swagger-resources/**").permitAll()
+				.antMatchers("/v2/api-docs").permitAll()
+				.antMatchers("/swagger-ui.html").permitAll()
+
 				.anyRequest().authenticated();
 
 		// Add custom JWT security filter
