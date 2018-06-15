@@ -67,6 +67,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 						"/**/*.jpg",
 						"/**/*.html",
 						"/**/*.css",
+						"/**/*.mp3",
 						"/**/*.js")
 				.permitAll()
 				.antMatchers("/api/auth/**").permitAll()
