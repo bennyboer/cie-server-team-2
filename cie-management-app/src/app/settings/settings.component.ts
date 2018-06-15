@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SettingsService} from '../util/settings/settings.service';
 import {MatSlideToggleChange} from '@angular/material';
+import {UserService} from '../user/user.service';
 
 @Component({
   selector: 'app-settings',
@@ -11,7 +12,7 @@ export class SettingsComponent implements OnInit {
 
   isBackgroundMusicEnabled: boolean;
 
-  constructor(private settingsService: SettingsService) { }
+  constructor(private settingsService: SettingsService, private userService: UserService) { }
 
   ngOnInit() {
     this.isBackgroundMusicEnabled = this.settingsService.backgroundMusicEnabled.value;

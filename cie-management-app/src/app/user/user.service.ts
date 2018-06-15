@@ -39,4 +39,12 @@ export class UserService {
     return this.http.get<User[]>(`${this.userUrl}/selected-course/${course.id}`);
   }
 
+  public requestPasswordReset(email: string) {
+    return this.http.get(`${this.userUrl}/reset-password/${email}`);
+  }
+
+  public resetPassword(email: string, code: string, newPassword: string) {
+    return this.http.get(`${this.userUrl}/reset-password/${email}/${code}/${newPassword}`);
+  }
+
 }

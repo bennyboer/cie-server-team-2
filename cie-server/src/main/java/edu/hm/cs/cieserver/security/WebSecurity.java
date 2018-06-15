@@ -105,6 +105,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/notifications/**").hasAuthority(User.ROLE_ADMIN)
 
 				.antMatchers(HttpMethod.GET, "/api/users/current").authenticated()
+				.antMatchers(HttpMethod.GET, "/reset-password/**").permitAll()
 				.antMatchers("/api/users/**").hasAuthority(User.ROLE_ADMIN)
 
 				// Swagger 2 REST API documentation

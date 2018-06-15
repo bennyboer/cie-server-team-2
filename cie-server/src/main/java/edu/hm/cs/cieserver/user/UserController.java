@@ -2,17 +2,17 @@ package edu.hm.cs.cieserver.user;
 
 import edu.hm.cs.cieserver.course.Course;
 import edu.hm.cs.cieserver.course.CourseRepository;
+import edu.hm.cs.cieserver.util.mail.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Controller handling user purposes.
@@ -32,6 +32,50 @@ public class UserController {
 
 	@Autowired
 	private CourseRepository courseRepository;
+
+	@Autowired
+	private MailService mailService;
+
+	private static Map<String, String> passwordResetCodeMap = new HashMap<>();
+
+	@GetMapping(path = "/reset-password/{email}")
+	public void requestPasswordResetForEmail(@PathVariable("email") String email) {
+		User user = (User) userDetailsService.loadUserByUsername(email);
+
+		// If user could be found, it exists.
+
+		// Generate random code for password reset.
+		String uuid = UUID.randomUUID().toString().replace("-", "");
+		passwordResetCodeMap.put(email, uuid);
+
+		mailService.send(user.getEmail(), "Password reset", "Hey there, you wanted to reset your password. Here is the code you need for that: " + uuid);
+	}
+
+	@GetMapping(path = "/reset-password/{email}/{code}/{newPassword}")
+	public ResponseEntity<?> resetPassword(@PathVariable("email") String email, @PathVariable("code") String code, @PathVariable("newPassword") String password) {
+		HttpStatus status = HttpStatus.OK;
+
+		User user = (User) userDetailsService.loadUserByUsername(email);
+
+		String neededCode = passwordResetCodeMap.get(email);
+
+		if (neededCode.equals(code)) {
+			passwordResetCodeMap.remove(email);
+			if (password != null && password.length() > 4) {
+				User existing = userRepository.findByEmail(email);
+
+				existing.setPassword(passwordEncoder.encode(password));
+
+				userRepository.save(existing);
+			} else {
+				status = HttpStatus.BAD_REQUEST;
+			}
+		} else {
+			status = HttpStatus.BAD_REQUEST;
+		}
+
+		return new ResponseEntity<>(null, status);
+	}
 
 	@GetMapping(path = "/selected-course/{courseId}")
 	public Set<User> findUsersWhoSelectedCourse(@PathVariable("courseId") Long courseId) {
