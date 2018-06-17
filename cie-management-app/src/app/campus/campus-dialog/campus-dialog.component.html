@@ -3,5 +3,23 @@
     <input matInput placeholder="Name" [(ngModel)]="campus.name" name="name">
   </mat-form-field>
 
-  <button mat-raised-button (click)="finish()"><mat-icon>create</mat-icon> Finish</button>
+  <h3>Location</h3>
+  <mat-form-field>
+    <input matInput placeholder="Latitude" [(ngModel)]="campus.location.latitude" name="latitude">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Longitude" [(ngModel)]="campus.location.longitude" name="longitude">
+  </mat-form-field>
+
+  <div>
+    <button mat-raised-button (click)="fileInput.click()">
+      <mat-icon>image</mat-icon> Upload Image&nbsp;
+      <mat-icon *ngIf="base64Image !== undefined && base64Image !== null">check</mat-icon>
+    </button>
+    <input hidden type="file" (change)="fileSelected($event)" #fileInput>
+  </div>
+
+  <div style="padding: 0.5em 0 0 0">
+    <button mat-raised-button (click)="finish()"><mat-icon>create</mat-icon> Finish</button>
+  </div>
 </form>

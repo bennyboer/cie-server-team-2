@@ -40,7 +40,7 @@ export class CampusComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result != null) {
-        this.campusService.createCampus(result).subscribe((campus: Campus) => {
+        this.campusService.createCampus(result.campus, result.base64Image).subscribe((campus: Campus) => {
           this.snackBar.open('Campus with id ' + campus.id + ' has been created.', 'OK', {
             duration: 2000
           });
@@ -60,7 +60,7 @@ export class CampusComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result != null) {
-        this.campusService.updateCampus(result).subscribe((c: Campus) => {
+        this.campusService.updateCampus(result.campus, result.base64Image).subscribe((c: Campus) => {
           this.snackBar.open('Campus with id ' + c.id + ' has been updated.', 'OK', {
             duration: 2000
           });

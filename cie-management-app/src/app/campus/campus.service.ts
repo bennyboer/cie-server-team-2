@@ -22,12 +22,19 @@ export class CampusService {
     return this.http.delete(this.apiUrl + '/' + campus.id);
   }
 
-  public createCampus(campus: Campus) {
-    return this.http.post(this.apiUrl, campus);
+  public createCampus(campus: Campus, base64Image?: string) {
+    console.log(base64Image);
+    return this.http.post(this.apiUrl, {
+      campus: campus,
+      base64Image: base64Image
+    });
   }
 
-  public updateCampus(campus: Campus) {
-    return this.http.put(this.apiUrl, campus);
+  public updateCampus(campus: Campus, base64Image?: string) {
+    return this.http.put(this.apiUrl, {
+      campus: campus,
+      base64Image: base64Image
+    });
   }
 
 }
