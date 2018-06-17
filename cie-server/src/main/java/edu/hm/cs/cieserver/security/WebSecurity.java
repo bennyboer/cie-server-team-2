@@ -89,6 +89,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/course-appointments/**").hasAuthority(User.ROLE_ADMIN)
 
 				.antMatchers(HttpMethod.GET, "/api/locations/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/locations/maps-api-key").authenticated()
 				.antMatchers(HttpMethod.POST, "/api/locations/**").hasAuthority(User.ROLE_ADMIN)
 				.antMatchers(HttpMethod.DELETE, "/api/locations/**").hasAuthority(User.ROLE_ADMIN)
 				.antMatchers(HttpMethod.PUT, "/api/locations/**").hasAuthority(User.ROLE_ADMIN)

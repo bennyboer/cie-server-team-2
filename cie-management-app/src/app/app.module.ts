@@ -39,7 +39,7 @@ import {CourseAppointmentService} from './course/course-appointment.service';
 import {HexPipe} from './pipes/hexpipe/hex.pipe';
 import {ColorPickerModule} from 'ngx-color-picker';
 import {SettingsService} from './util/settings/settings.service';
-import { SettingsComponent } from './settings/settings.component';
+import {SettingsComponent} from './settings/settings.component';
 
 const helper = new JwtHelperService();
 

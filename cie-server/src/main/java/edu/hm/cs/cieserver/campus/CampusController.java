@@ -1,6 +1,7 @@
 package edu.hm.cs.cieserver.campus;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,14 @@ public class CampusController {
 
 	@Autowired
 	private CampusRepository campusRepository;
+
+	@Value("${app.cie-server.maps-api-key}")
+	private String mapsApiKey;
+
+	@GetMapping(path = "/maps-api-key")
+	public String getMapsApiKey() {
+		return mapsApiKey;
+	}
 
 	@GetMapping(path = {"/{id}"})
 	public Campus findOne(@PathVariable("id") Long id) {
