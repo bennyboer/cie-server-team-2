@@ -9,10 +9,7 @@ import java.util.Set;
 public class Department {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
-	private int number;
+	private Long number;
 
 	private String name;
 
@@ -21,19 +18,11 @@ public class Department {
 	@OneToMany(mappedBy = "department")
 	private Set<Course> courseSet;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public int getNumber() {
+	public Long getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Long number) {
 		this.number = number;
 	}
 

@@ -15,9 +15,9 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentRepository departmentRepository;
 
-	@GetMapping(path = {"/{id}"})
-	public Department findOne(@PathVariable("id") Long id) {
-		return departmentRepository.findById(id).get();
+	@GetMapping(path = {"/{number}"})
+	public Department findOne(@PathVariable("number") Long number) {
+		return departmentRepository.findById(number).get();
 	}
 
 	@GetMapping
@@ -35,9 +35,9 @@ public class DepartmentController {
 		return departmentRepository.save(course);
 	}
 
-	@DeleteMapping(path = {"/{id}"})
-	public void delete(@PathVariable("id") Long id) {
-		departmentRepository.deleteById(id);
+	@DeleteMapping(path = {"/{number}"})
+	public void delete(@PathVariable("number") Long number) {
+		departmentRepository.deleteById(number);
 	}
 
 }

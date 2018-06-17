@@ -77,6 +77,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/api/courses/favorized/**").hasAuthority(User.ROLE_ADMIN)
 				.antMatchers(HttpMethod.GET, "/api/courses/selected").authenticated()
 				.antMatchers(HttpMethod.GET, "/api/courses/favorized").authenticated()
+				.antMatchers(HttpMethod.POST, "/api/courses/import/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/api/courses/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/courses/select/**").authenticated()
 				.antMatchers(HttpMethod.POST, "/api/courses/favorize/**").authenticated()
