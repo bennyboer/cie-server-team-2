@@ -1,6 +1,6 @@
 import {
   MatButtonModule, MatCardModule,
-  MatCheckboxModule, MatDatepickerModule, MatDialogModule,
+  MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
   MatIconModule, MatInputModule, MatListModule,
   MatMenuModule, MatProgressSpinnerModule, MatSelectModule,
   MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTableModule,
@@ -26,7 +26,8 @@ const MATERIAL_MODULES = [
   MatSelectModule,
   MatListModule,
   MatDatepickerModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatExpansionModule
 ];
 
 @NgModule({

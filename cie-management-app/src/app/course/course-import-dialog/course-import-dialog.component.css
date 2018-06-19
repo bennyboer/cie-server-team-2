@@ -1,0 +1,9 @@
+.app-date-time-field {
+  display: flex;
+  align-items: center;
+}
+
+.app-date-time-field > * {
+  flex: 1 1 auto;
+  padding: 0 0.1em;
+}

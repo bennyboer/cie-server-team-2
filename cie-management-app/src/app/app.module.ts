@@ -40,6 +40,8 @@ import {HexPipe} from './pipes/hexpipe/hex.pipe';
 import {ColorPickerModule} from 'ngx-color-picker';
 import {SettingsService} from './util/settings/settings.service';
 import {SettingsComponent} from './settings/settings.component';
+import {CourseImportDialogComponent} from './course/course-import-dialog/course-import-dialog.component';
+import {CowAnimComponent} from './util/cow-anim/cow-anim.component';
 
 const helper = new JwtHelperService();
 
@@ -81,7 +83,9 @@ export function tokenGetter() {
     HexPipe,
     NotificationDialogComponent,
     CourseAppointmentDialogComponent,
-    SettingsComponent
+    SettingsComponent,
+    CourseImportDialogComponent,
+    CowAnimComponent
   ],
   entryComponents: [
     CourseDialogComponent,
@@ -91,7 +95,8 @@ export function tokenGetter() {
     CourseSelectionsDialogComponent,
     YesNoDialogComponent,
     NotificationDialogComponent,
-    CourseAppointmentDialogComponent
+    CourseAppointmentDialogComponent,
+    CourseImportDialogComponent
   ],
   imports: [
     BrowserModule,

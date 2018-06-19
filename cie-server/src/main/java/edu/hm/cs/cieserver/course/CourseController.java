@@ -81,7 +81,7 @@ public class CourseController {
 
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(IOUtils.toInputStream(rawXML, "UTF-8"));
+		Document doc = dBuilder.parse(IOUtils.toInputStream(rawXML, StandardCharsets.UTF_8));
 
 		doc.getDocumentElement().normalize();
 
@@ -199,21 +199,28 @@ public class CourseController {
 							if (departmentSb != null) {
 								String department = departmentSb.toString().trim();
 
-								try {
-									int departmentNumber = Integer.parseInt(department);
+								if (!department.isEmpty()) {
+									String departmentNumStr = department.split(" ")[0];
+									String departmentName = department.substring(departmentNumStr.length()).trim();
 
-									Optional<Department> departmentOptional = departmentRepository.findById((long) departmentNumber);
+									try {
+										int departmentNumber = Integer.parseInt(departmentNumStr);
 
-									if (departmentOptional.isPresent()) {
-										d = departmentOptional.get();
-									} else {
-										d = new Department();
-										d.setNumber((long) departmentNumber);
-										d.setName("");
-										d.setColor(0xFFFFFF);
+										Optional<Department> departmentOptional = departmentRepository.findById((long) departmentNumber);
+
+										if (departmentOptional.isPresent()) {
+											d = departmentOptional.get();
+										} else {
+											d = new Department();
+											d.setNumber((long) departmentNumber);
+											d.setName(departmentName);
+											d.setColor(0xFFFFFF);
+
+											departmentRepository.save(d);
+										}
+									} catch (Exception e) {
+										e.printStackTrace();
 									}
-								} catch (Exception e) {
-
 								}
 							}
 							newCourse.setDepartment(d);

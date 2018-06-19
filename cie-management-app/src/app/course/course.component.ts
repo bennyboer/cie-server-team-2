@@ -7,6 +7,7 @@ import {UserService} from '../user/user.service';
 import {CourseSelectionsDialogComponent} from './course-selections-dialog/course-selections-dialog.component';
 import {YesNoDialogComponent} from '../util/yes-no-dialog/yes-no-dialog.component';
 import {CourseAppointmentService} from './course-appointment.service';
+import {CourseImportDialogComponent} from './course-import-dialog/course-import-dialog.component';
 
 @Component({
   selector: 'app-course-management',
@@ -42,6 +43,10 @@ export class CourseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refresh();
+  }
+
+  refresh() {
     this.courseService.getCourses()
       .subscribe(data => {
         this.courses = data;
@@ -151,8 +156,12 @@ export class CourseComponent implements OnInit {
   }
 
   importCourses() {
-    this.snackBar.open('Import courses not yet implemented', 'OK', {
-      duration: 3000
+    const dialogRef = this.dialog.open(CourseImportDialogComponent, {
+      width: '700px'
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.refresh();
     });
   }
 

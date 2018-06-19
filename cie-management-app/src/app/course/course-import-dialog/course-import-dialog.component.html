@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>Import courses</h2>
+<form>
+  <mat-dialog-content>
+
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            XML Import
+          </mat-panel-title>
+          <mat-panel-description>
+            Import courses from XML
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field style="width: 100%">
+          <input matInput [(ngModel)]="xmlUrl" placeholder="XML URL" name="xmlUrl">
+        </mat-form-field>
+
+        <div>
+          <button mat-raised-button (click)="importFromXML()">Start import</button>
+        </div>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            NINE Import
+          </mat-panel-title>
+          <mat-panel-description>
+            Import courses from NINE (nine.wi.hm.edu)
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="NINE username" [(ngModel)]="nineUsername" name="nineUsername">
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%">
+          <input matInput type="password" placeholder="NINE password" [(ngModel)]="ninePassword" name="ninePassword">
+        </mat-form-field>
+
+        <div>
+          <button mat-raised-button (click)="importFromNine()">Start import</button>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div *ngIf="loading">
+      <app-cow-anim></app-cow-anim>
+    </div>
+
+  </mat-dialog-content>
+</form>
