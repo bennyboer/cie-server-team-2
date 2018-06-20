@@ -3,8 +3,8 @@ jdk:
   - oraclejdk8
 services:
   - mysql
-before_install:
-  - mysql -e 'CREATE DATABASE test;'
+script:
   - cd ./cie-server
+  - mvn clean compile
 after_success:
-  - mvn test jacoco:report coveralls:report
+  - mvn clean test jacoco:report coveralls:report
