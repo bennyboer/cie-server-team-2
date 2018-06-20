@@ -11,9 +11,6 @@ export class CourseImportDialogComponent implements OnInit {
 
   xmlUrl: string;
 
-  ninePassword: string;
-  nineUsername: string;
-
   loading = false;
 
   constructor(public dialogRef: MatDialogRef<CourseImportDialogComponent>, private http: HttpClient, private snackBar: MatSnackBar) {
@@ -46,7 +43,23 @@ export class CourseImportDialogComponent implements OnInit {
   }
 
   importFromNine() {
-    console.log('Import from NINE');
+    this.loading = true;
+
+    this.http.get('/api/courses/import/nine').subscribe(result => {
+      this.loading = false;
+
+      this.snackBar.open('Courses imported successfully.', 'OK', {
+        duration: 3000
+      });
+
+      this.finish();
+    }, e => {
+      this.loading = false;
+
+      this.snackBar.open('An error happened when trying to import courses from NINE.', 'OK', {
+        duration: 4000
+      });
+    });
   }
 
 }

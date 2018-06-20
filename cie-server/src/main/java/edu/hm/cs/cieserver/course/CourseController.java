@@ -1,10 +1,13 @@
 package edu.hm.cs.cieserver.course;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.hm.cs.cieserver.course.date.CourseAppointmentRepository;
+import edu.hm.cs.cieserver.course.importer.NineCourse;
 import edu.hm.cs.cieserver.department.Department;
 import edu.hm.cs.cieserver.department.DepartmentRepository;
 import edu.hm.cs.cieserver.lecturer.Lecturer;
 import edu.hm.cs.cieserver.lecturer.LecturerRepository;
+import edu.hm.cs.cieserver.security.login.LoginRequest;
 import edu.hm.cs.cieserver.user.User;
 import edu.hm.cs.cieserver.user.UserDetailsServiceImpl;
 import edu.hm.cs.cieserver.user.UserRepository;
@@ -24,6 +27,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
@@ -73,6 +77,19 @@ public class CourseController {
 
 	@Autowired
 	private CourseAppointmentRepository courseAppointmentRepository;
+
+	@GetMapping(path = "/import/nine")
+	public void importCoursesFromNINE() throws IOException {
+		String url = "https://nine.wi.hm.edu/api/v2/courses/FK%2013/CIE/SoSe%2018";
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		NineCourse[] nineCourses = mapper.readValue(new URL(url), NineCourse[].class);
+
+		for (NineCourse nineCourse : nineCourses) {
+			System.out.println(nineCourse.getName());
+		}
+	}
 
 	@PostMapping(path = "/import/xml")
 	public void importCoursesFromXML(@RequestBody String xmlUrl) throws IOException, ParserConfigurationException, SAXException {
