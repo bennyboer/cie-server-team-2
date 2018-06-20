@@ -77,7 +77,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/api/courses/favorized/**").hasAuthority(User.ROLE_ADMIN)
 				.antMatchers(HttpMethod.GET, "/api/courses/selected").authenticated()
 				.antMatchers(HttpMethod.GET, "/api/courses/favorized").authenticated()
-				.antMatchers(HttpMethod.POST, "/api/courses/import/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/courses/import/nine").hasAuthority(User.ROLE_ADMIN)
+				.antMatchers(HttpMethod.POST, "/api/courses/import/**").hasAuthority(User.ROLE_ADMIN)
 				.antMatchers(HttpMethod.GET, "/api/courses/**").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/courses/select/**").authenticated()
 				.antMatchers(HttpMethod.POST, "/api/courses/favorize/**").authenticated()
@@ -108,7 +109,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/notifications/**").hasAuthority(User.ROLE_ADMIN)
 
 				.antMatchers(HttpMethod.GET, "/api/users/current").authenticated()
-				.antMatchers(HttpMethod.GET, "/reset-password/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/users/reset-password/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/api/users/firebase-token").authenticated()
 				.antMatchers("/api/users/**").hasAuthority(User.ROLE_ADMIN)
 
 				// Swagger 2 REST API documentation

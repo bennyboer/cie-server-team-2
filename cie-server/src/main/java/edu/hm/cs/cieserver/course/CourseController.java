@@ -88,6 +88,8 @@ public class CourseController {
 
 		for (NineCourse nineCourse : nineCourses) {
 			System.out.println(nineCourse.getName());
+
+			// TODO Map nine courses to our course objects and store them.
 		}
 	}
 

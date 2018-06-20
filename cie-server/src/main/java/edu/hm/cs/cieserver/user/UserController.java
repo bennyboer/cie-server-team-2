@@ -38,6 +38,15 @@ public class UserController {
 
 	private static Map<String, String> passwordResetCodeMap = new HashMap<>();
 
+	@PutMapping(path = "/firebase-token")
+	public void setFirebaseToken(@RequestBody String firebaseToken, Principal principal) {
+		User user = (User) userDetailsService.loadUserByUsername(principal.getName());
+
+		user.setFirebaseToken(firebaseToken);
+
+		userRepository.save(user);
+	}
+
 	@GetMapping(path = "/reset-password/{email}")
 	public void requestPasswordResetForEmail(@PathVariable("email") String email) {
 		User user = (User) userDetailsService.loadUserByUsername(email);

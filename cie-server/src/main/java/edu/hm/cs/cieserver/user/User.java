@@ -49,6 +49,11 @@ public class User implements UserDetails {
 	private String password;
 
 	/**
+	 * Firebase token used to target this user in firebase cloud messaging notifications.
+	 */
+	private String firebaseToken;
+
+	/**
 	 * Whether the user is administrator.
 	 */
 	@JsonProperty
@@ -219,6 +224,24 @@ public class User implements UserDetails {
 	 */
 	public void setFavorizedCourses(Set<Course> favorizedCourses) {
 		this.favorizedCourses = favorizedCourses;
+	}
+
+	/**
+	 * Get users firebase token.
+	 *
+	 * @return users firebase token
+	 */
+	public String getFirebaseToken() {
+		return firebaseToken;
+	}
+
+	/**
+	 * Set users firebase token.
+	 *
+	 * @param firebaseToken users firebase token to set
+	 */
+	public void setFirebaseToken(String firebaseToken) {
+		this.firebaseToken = firebaseToken;
 	}
 
 	@Override
