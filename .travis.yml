@@ -10,7 +10,5 @@ before_install:
 script:
   - cd ./cie-server
   - mvn -N io.takari:maven:wrapper
-  - chmod +x ./mvnw
-  - ./mvnw install
   - mvn clean test org.jacoco:jacoco-maven-plugin:report org.eluder.coveralls:coveralls-maven-plugin:report
   
