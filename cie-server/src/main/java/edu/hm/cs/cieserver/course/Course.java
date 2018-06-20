@@ -197,7 +197,7 @@ public class Course {
 	}
 
 	public void setFavorizedBy(Set<User> favorizedBy) {
-		this.favorizedBy = this.favorizedBy;
+		this.favorizedBy = favorizedBy;
 	}
 
 	public Set<CourseAppointment> getCourseAppointments() {

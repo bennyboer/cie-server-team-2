@@ -1,5 +1,6 @@
 package edu.hm.cs.cieserver.lecturer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.hm.cs.cieserver.course.Course;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Lecturer {
 
 	private String email;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "lecturer")
 	private Set<Course> courseSet;
 
@@ -41,5 +43,13 @@ public class Lecturer {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Set<Course> getCourseSet() {
+		return courseSet;
+	}
+
+	public void setCourseSet(Set<Course> courseSet) {
+		this.courseSet = courseSet;
 	}
 }

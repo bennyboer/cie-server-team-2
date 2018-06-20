@@ -6,4 +6,4 @@ script:
   - cd ./cie-server
   - mvn -N io.takari:maven:wrapper
   - chmod +x ./mvnw
-  - ./mvnw install -DskipTests
+  - ./mvnw install

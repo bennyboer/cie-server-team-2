@@ -1,5 +1,6 @@
 package edu.hm.cs.cieserver.department;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.hm.cs.cieserver.course.Course;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class Department {
 
 	private int color;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "department")
 	private Set<Course> courseSet;
 
@@ -41,4 +43,13 @@ public class Department {
 	public void setColor(int color) {
 		this.color = color;
 	}
+
+	public Set<Course> getCourseSet() {
+		return courseSet;
+	}
+
+	public void setCourseSet(Set<Course> courseSet) {
+		this.courseSet = courseSet;
+	}
+
 }
