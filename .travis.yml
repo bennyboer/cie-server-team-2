@@ -6,8 +6,7 @@ services:
   
 before_install:
   - mysql -e 'CREATE DATABASE test;'
-script:
-  - cd ./cie-server
-  - mvn -N io.takari:maven:wrapper
+install:
+  - mwn clean install
 after_success:
   - mvn clean test jacoco:report coveralls:report
