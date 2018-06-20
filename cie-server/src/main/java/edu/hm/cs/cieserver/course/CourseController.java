@@ -1,8 +1,11 @@
 package edu.hm.cs.cieserver.course;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.hm.cs.cieserver.course.date.CourseAppointment;
 import edu.hm.cs.cieserver.course.date.CourseAppointmentRepository;
 import edu.hm.cs.cieserver.course.importer.NineCourse;
+import edu.hm.cs.cieserver.course.importer.NineCourseAppointment;
+import edu.hm.cs.cieserver.course.importer.NineLecturer;
 import edu.hm.cs.cieserver.department.Department;
 import edu.hm.cs.cieserver.department.DepartmentRepository;
 import edu.hm.cs.cieserver.lecturer.Lecturer;
@@ -31,6 +34,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -87,9 +91,81 @@ public class CourseController {
 		NineCourse[] nineCourses = mapper.readValue(new URL(url), NineCourse[].class);
 
 		for (NineCourse nineCourse : nineCourses) {
-			System.out.println(nineCourse.getName());
+			if (nineCourse.getName() != null && !nineCourse.getName().isEmpty() && courseRepository.findByName(nineCourse.getName()).isEmpty()) {
+				Course course = new Course();
 
-			// TODO Map nine courses to our course objects and store them.
+				course.setName(nineCourse.getName());
+				course.setDescription(nineCourse.getDescription());
+
+				CourseStatus status = CourseStatus.GREEN;
+				if (!nineCourse.getIsCoterie() && nineCourse.getHasHomeBias()) {
+					status = CourseStatus.YELLOW;
+				} else if (nineCourse.getIsCoterie() && nineCourse.getHasHomeBias()) {
+					status = CourseStatus.RED;
+				}
+				course.setCourseStatus(status);
+
+				Set<CourseAppointment> appointments = new HashSet<>();
+				NineLecturer nineLecturer = null;
+				for (NineCourseAppointment nineCourseAppointment: nineCourse.getDates()) {
+					if (nineLecturer == null) {
+						nineLecturer = nineCourseAppointment.getLecturer().get(0);
+					}
+
+					CourseAppointment appointment = new CourseAppointment();
+
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(nineCourseAppointment.getBegin());
+
+					appointment.setStartHour(cal.get(Calendar.HOUR_OF_DAY));
+					appointment.setStartMinute(cal.get(Calendar.MINUTE));
+
+					long durationInMs = Math.abs(nineCourseAppointment.getBegin().getTime() - nineCourseAppointment.getEnd().getTime());
+					appointment.setDuration((int) (durationInMs / 1000 / 1000));
+
+					if (nineCourseAppointment.getRooms() != null && !nineCourseAppointment.getRooms().isEmpty()) {
+						appointment.setRoom(nineCourseAppointment.getRooms().get(0).getNumber());
+					}
+
+					int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1;
+					if (dayOfWeek == 0) {
+						dayOfWeek = 7;
+					}
+
+					appointment.setWeekday(dayOfWeek);
+
+					appointments.add(appointment);
+				}
+				course.setCourseAppointments(appointments);
+
+				if (nineLecturer != null) {
+					String name = (nineLecturer.getFirstName() + " " + nineLecturer.getLastName()).trim();
+
+					List<Lecturer> lecturers = lecturerRepository.findByName(name);
+
+					if (lecturers.isEmpty()) {
+						// Add new lecturer.
+						Lecturer lecturer = new Lecturer();
+
+						String lecturerName = "";
+						if (nineLecturer.getFirstName() != null && !nineLecturer.getFirstName().isEmpty()) {
+							lecturerName += nineLecturer.getFirstName();
+						}
+						if (nineLecturer.getLastName() != null && !nineLecturer.getLastName().isEmpty()) {
+							if (!lecturerName.isEmpty()) {
+								lecturerName += " ";
+							}
+							lecturerName += nineLecturer.getLastName();
+						}
+
+						lecturer.setName(lecturerName);
+
+						lecturerRepository.save(lecturer);
+					}
+				}
+
+				courseRepository.save(course);
+			}
 		}
 	}
 
