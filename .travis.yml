@@ -1,6 +1,11 @@
 language: java
 jdk:
   - oraclejdk8
+services:
+  - mysql
+  
+before_install:
+  - mysql -e 'CREATE DATABASE test;'
 
 script:
   - cd ./cie-server
