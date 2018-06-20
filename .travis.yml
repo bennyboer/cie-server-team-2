@@ -1,4 +1,3 @@
-sudo: required
 language: java
 jdk:
   - oraclejdk8
@@ -8,6 +7,6 @@ before_install:
   - mysql -e 'CREATE DATABASE test;'
 install:
   - cd ./cie-server
-  - sudo mvn clean compile
+  - mvn clean compile -Dmaven.test.skip=true
 after_success:
-  - sudo mvn test jacoco:report coveralls:report
+  - mvn test jacoco:report coveralls:report
