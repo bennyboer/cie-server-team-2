@@ -12,4 +12,6 @@ script:
   - mvn -N io.takari:maven:wrapper
   - chmod +x ./mvnw
   - ./mvnw install
-  - mvn clean test
+  
+after_success:
+  - mvn jacoco:report coveralls:report
