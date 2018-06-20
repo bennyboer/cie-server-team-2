@@ -14,4 +14,5 @@ script:
   - ./mvnw install
   
 after_success:
-  - mvn clean test org.jacoco:jacoco-maven-plugin:report org.eluder.coveralls:coveralls-maven-plugin:report
+  - cd ./cie-server
+  - mvn clean test jacoco:report coveralls:report
