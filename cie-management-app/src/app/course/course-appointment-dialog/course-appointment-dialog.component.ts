@@ -10,6 +10,7 @@ export class CourseAppointmentDialogComponent implements OnInit {
 
   date: Date;
   duration: number;
+  room: string;
 
   isEdit = false;
 
@@ -17,6 +18,7 @@ export class CourseAppointmentDialogComponent implements OnInit {
     if (data !== undefined && data !== null) {
       this.date = data.date;
       this.duration = data.duration;
+      this.room = data.room;
       this.isEdit = true;
     }
   }
@@ -24,7 +26,8 @@ export class CourseAppointmentDialogComponent implements OnInit {
   finish() {
     this.dialogRef.close({
       date: this.date,
-      duration: this.duration
+      duration: this.duration,
+      room: this.room
     });
   }
 

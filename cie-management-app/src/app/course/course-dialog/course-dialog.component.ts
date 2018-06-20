@@ -99,6 +99,7 @@ export class CourseDialogComponent implements OnInit {
         newApp.date = new Date();
         newApp.date.setHours(appointment.startHour);
         newApp.date.setMinutes(appointment.startMinute);
+        newApp.room = appointment.room;
 
         // Transform to right day (sundays are 0 not 7).
         let day = appointment.weekday + 1;
@@ -127,6 +128,7 @@ export class CourseDialogComponent implements OnInit {
       appointment.duration = app.duration;
       appointment.startHour = app.date.getHours();
       appointment.startMinute = app.date.getMinutes();
+      appointment.room = app.room;
 
       let day = app.date.getDay(); // Sunday is zero, Monday is one, ...
 
@@ -172,6 +174,7 @@ export class CourseDialogComponent implements OnInit {
       if (result !== undefined && result != null) {
         appointment.date = result.date;
         appointment.duration = result.duration;
+        appointment.room = result.room;
       }
     });
   }
@@ -193,7 +196,8 @@ export class CourseDialogComponent implements OnInit {
     const dialogRef = this.dialog.open(CourseAppointmentDialogComponent, {
       data: {
         date: appointment.date,
-        duration: appointment.duration
+        duration: appointment.duration,
+        room: appointment.room
       }
     });
 
@@ -201,6 +205,7 @@ export class CourseDialogComponent implements OnInit {
       if (result !== undefined && result !== null) {
         appointment.date = result.date;
         appointment.duration = result.duration;
+        appointment.room = result.room;
       }
     });
   }
@@ -211,4 +216,5 @@ export class DialogAppointment {
   id: number;
   date: Date;
   duration: number;
+  room: string;
 }

@@ -11,6 +11,10 @@
       <input matInput type="number" placeholder="Duration (in minutes)" [(ngModel)]="duration" name="duration">
     </mat-form-field>
 
+    <mat-form-field style="width: 100%">
+      <input matInput placeholder="Room" [(ngModel)]="room" name="room">
+    </mat-form-field>
+
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-button (click)="finish()"><mat-icon>keyboard_return</mat-icon>Save</button>

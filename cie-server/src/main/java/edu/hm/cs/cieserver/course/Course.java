@@ -33,11 +33,6 @@ public class Course {
 	private String description;
 
 	/**
-	 * Where the course is.
-	 */
-	private String room;
-
-	/**
 	 * How many slots are available.
 	 */
 	private int availableSlots;
@@ -123,14 +118,6 @@ public class Course {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getRoom() {
-		return room;
-	}
-
-	public void setRoom(String room) {
-		this.room = room;
 	}
 
 	public int getAvailableSlots() {

@@ -7,7 +7,6 @@ export class Course {
   id: number;
   name: string;
   description: string;
-  room: string;
   availableSlots: number;
   ects: number;
   usCredits: number;
@@ -29,5 +28,6 @@ export class CourseAppointment {
   startHour: number;
   startMinute: number;
   duration: number;
+  room: string;
 
 }

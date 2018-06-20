@@ -42,6 +42,8 @@ public class CourseAppointment {
 	@Min(0)
 	private int duration;
 
+	private String room;
+
 	@ManyToOne
 	@JsonIgnore
 	private Course course;
@@ -98,4 +100,11 @@ public class CourseAppointment {
 		this.course = course;
 	}
 
+	public String getRoom() {
+		return room;
+	}
+
+	public void setRoom(String room) {
+		this.room = room;
+	}
 }
