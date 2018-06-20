@@ -6,7 +6,8 @@ services:
   
 before_install:
   - mysql -e 'CREATE DATABASE test;'
-
+install:
+  - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
   - cd ./cie-server
   - mvn -N io.takari:maven:wrapper
