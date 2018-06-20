@@ -6,11 +6,8 @@ services:
   
 before_install:
   - mysql -e 'CREATE DATABASE test;'
-install:
-  - cd ./cie-server
-  - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
   - cd ./cie-server
   - mvn -N io.takari:maven:wrapper
-  - mvn clean test org.jacoco:jacoco-maven-plugin:report org.eluder.coveralls:coveralls-maven-plugin:report
-  
+after_success:
+  - mvn clean test jacoco:report coveralls:report
