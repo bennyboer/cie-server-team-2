@@ -7,6 +7,7 @@ services:
 before_install:
   - mysql -e 'CREATE DATABASE test;'
 install:
+  - cd ./cie-server
   - mvn clean install
 after_success:
   - mvn clean test jacoco:report coveralls:report
