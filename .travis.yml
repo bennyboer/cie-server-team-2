@@ -10,5 +10,4 @@ install:
   - cd ./cie-server
   - mvn clean compile
 after_success:
-  - cd ./cie-server
-  - mvn clean test jacoco:report coveralls:report
+  - mvn test jacoco:report coveralls:report
