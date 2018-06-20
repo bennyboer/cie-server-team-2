@@ -7,6 +7,6 @@ before_install:
   - mysql -e 'CREATE DATABASE test;'
 install:
   - cd ./cie-server
-  - mvn clean compile -Dmaven.test.skip=true
-after_success:
-  - mvn test jacoco:report coveralls:report
+  - mvn clean compile
+#after_success:
+#  - mvn test jacoco:report coveralls:report
