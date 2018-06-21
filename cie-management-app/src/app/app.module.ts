@@ -42,6 +42,7 @@ import {SettingsService} from './util/settings/settings.service';
 import {SettingsComponent} from './settings/settings.component';
 import {CourseImportDialogComponent} from './course/course-import-dialog/course-import-dialog.component';
 import {CowAnimComponent} from './util/cow-anim/cow-anim.component';
+import {StatisticsService} from './dashboard/statistics/statistics.service';
 
 const helper = new JwtHelperService();
 
@@ -125,7 +126,8 @@ export function tokenGetter() {
     CampusService,
     NotificationService,
     CourseAppointmentService,
-    SettingsService
+    SettingsService,
+    StatisticsService
   ],
   bootstrap: [AppComponent]
 })

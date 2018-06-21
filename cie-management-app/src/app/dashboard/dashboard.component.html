@@ -7,4 +7,39 @@
     Here you can manage all kinds of data usable for students within the courses in english application.<br>
     Start by adding <a routerLink="/locations">campuses</a>, <a routerLink="/departments">departments</a> and <a routerLink="/lecturers">lecturers</a>. Afterwards you can create <a routerLink="/courses">courses</a> using the previously created data.
   </p>
+
+  <h3>Statistics</h3>
+  <div *ngIf="countStatistics != null">
+    <p>
+      Objects currently stored by the application.
+    </p>
+    <table class="item-count-table">
+      <tr>
+        <th>Courses</th>
+        <td>{{countStatistics.courses}}</td>
+      </tr>
+      <tr>
+        <th>Users</th>
+        <td>{{countStatistics.users}}</td>
+      </tr>
+      <tr>
+        <th>Lecturers</th>
+        <td>{{countStatistics.lecturers}}</td>
+      </tr>
+      <tr>
+        <th>Departments</th>
+        <td>{{countStatistics.departments}}</td>
+      </tr>
+      <tr>
+        <th>Campuses</th>
+        <td>{{countStatistics.campuses}}</td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="countStatistics == null" style="display: flex; align-items: center; justify-content: center; width: 100%">
+    <div *ngIf="errorMessage != null">
+      {{errorMessage}}
+    </div>
+    <mat-spinner *ngIf="errorMessage == null"></mat-spinner>
+  </div>
 </div>

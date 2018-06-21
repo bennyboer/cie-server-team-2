@@ -1,0 +1,16 @@
+table.item-count-table th {
+  text-align: right;
+}
+
+table.item-count-table td {
+  text-align: center;
+}
+
+th, td {
+  padding: 0.5em 0.8em;
+}
+
+table, th, td {
+  border: 1px solid lightgray;
+  border-collapse: collapse;
+}

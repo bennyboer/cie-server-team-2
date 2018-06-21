@@ -114,6 +114,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.PUT, "/api/users/firebase-token").authenticated()
 				.antMatchers("/api/users/**").hasAuthority(User.ROLE_ADMIN)
 
+				.antMatchers("/api/statistics/**").hasAuthority(User.ROLE_ADMIN)
+
 				// Swagger 2 REST API documentation
 				.antMatchers("/swagger-resources/**").permitAll()
 				.antMatchers("/v2/api-docs").permitAll()
