@@ -31,11 +31,6 @@ public class StatisticsController {
 
 	@GetMapping(path = "/count")
 	public ItemCountStatistics getItemCountStatistics() {
-		try {
-			Thread.sleep(4000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		return new ItemCountStatistics(courseRepository.count(),
 				lecturerRepository.count(),
 				campusRepository.count(),
