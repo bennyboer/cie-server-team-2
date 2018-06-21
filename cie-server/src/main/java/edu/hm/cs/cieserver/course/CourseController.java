@@ -16,6 +16,7 @@ import edu.hm.cs.cieserver.notification.NotificationService;
 import edu.hm.cs.cieserver.user.User;
 import edu.hm.cs.cieserver.user.UserDetailsServiceImpl;
 import edu.hm.cs.cieserver.user.UserRepository;
+import edu.hm.cs.cieserver.util.Switches;
 import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -139,7 +140,10 @@ public class CourseController {
 				userRepository.save(user);
 
 				if (user.getFirebaseToken() != null) {
-					notificationService.send(new NotificationRequest<>("Your course lottery result is ready", "See your result!", Optional.of(user.getFirebaseToken()), Optional.of(entry.getValue())));
+					NotificationRequest request = new NotificationRequest("Your course lottery result is ready", "See your result!", Optional.of(user.getFirebaseToken()));
+					request.getData().put("course_lottery_result", entry.getValue());
+
+					notificationService.send(request);
 				}
 			});
 		}
@@ -230,6 +234,8 @@ public class CourseController {
 				courseRepository.save(course);
 			}
 		}
+
+		notifyOfCourseChange();
 	}
 
 	/**
@@ -423,6 +429,8 @@ public class CourseController {
 				}
 			}
 		}
+
+		notifyOfCourseChange();
 	}
 
 	@GetMapping(path = "/selected/{userId}")
@@ -473,7 +481,11 @@ public class CourseController {
 
 	@PostMapping
 	public Course create(@RequestBody Course course) {
-		return courseRepository.save(course);
+		Course c = courseRepository.save(course);
+
+		notifyOfCourseChange();
+
+		return c;
 	}
 
 	@PostMapping(path = "/select/{courseId}")
@@ -542,7 +554,11 @@ public class CourseController {
 
 	@PutMapping
 	public Course update(@RequestBody Course course) {
-		return courseRepository.save(course);
+		Course c = courseRepository.save(course);
+
+		notifyOfCourseChange();
+
+		return c;
 	}
 
 	@DeleteMapping(path = {"/{id}"})
@@ -550,6 +566,8 @@ public class CourseController {
 		Optional<Course> course = courseRepository.findById(id);
 
 		course.ifPresent(u -> courseRepository.delete(u));
+
+		notifyOfCourseChange();
 
 		return course.get();
 	}
@@ -576,6 +594,19 @@ public class CourseController {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Notify all users of the course changes.
+	 */
+	private void notifyOfCourseChange() {
+		if (Switches.ENABLE_NOTIFICATIONS) {
+			List<Course> courses = courseRepository.findAll();
+
+			NotificationRequest request = new NotificationRequest("course_changes", "changes", courses, Optional.of("/topics/changes"));
+
+			notificationService.send(request);
+		}
 	}
 
 }
