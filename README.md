@@ -1,5 +1,8 @@
 # Courses in English Server and Web Interface
 
+[![Build Status](https://travis-ci.org/mobileappdevhm/cie-server-team-2.svg?branch=master)](https://travis-ci.org/mobileappdevhm/cie-server-team-2)
+[![Coverage Status](https://coveralls.io/repos/github/mobileappdevhm/cie-server-team-2/badge.svg?branch=master)](https://coveralls.io/github/mobileappdevhm/cie-server-team-2?branch=master)
+
 ## Motivation
 Since there was no really "good" solution besides using NINE (nine.wi.hm.edu) for getting the data for courses english, we decided to implement our own solution. It basically consists of a server - exposing a REST API - and a management interface - with which administrators can easily manage and control the apps contents.
 
