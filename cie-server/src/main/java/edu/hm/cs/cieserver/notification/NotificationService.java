@@ -22,7 +22,7 @@ public class NotificationService {
 	PushNotificationService notificationService;
 
 	@PostMapping
-	public ResponseEntity<String> send(@RequestBody NotificationRequest request) {
+	public <T> ResponseEntity<String> send(@RequestBody NotificationRequest<T> request) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			HttpEntity<String> httpRequest = new HttpEntity<>(mapper.writer().writeValueAsString(request));

@@ -34,4 +34,8 @@ export class CourseService {
     return this.http.delete<boolean>(`${this.apiUrl}/delete-selections`);
   }
 
+  public startLottery() {
+    return this.http.get(`${this.apiUrl}/lottery`);
+  }
+
 }

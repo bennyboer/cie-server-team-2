@@ -96,6 +96,13 @@ public class Course {
 	@ManyToMany(mappedBy = "favorizedCourses")
 	private Set<User> favorizedBy;
 
+	/**
+	 * Users which received the course (From the lottery).
+	 */
+	@JsonIgnore
+	@ManyToMany(mappedBy = "receivedCourses")
+	private Set<User> receivedBy;
+
 	public Long getId() {
 		return id;
 	}
@@ -206,6 +213,14 @@ public class Course {
 
 	public void setCourseAppointments(Set<CourseAppointment> courseAppointments) {
 		this.courseAppointments = courseAppointments;
+	}
+
+	public Set<User> getReceivedBy() {
+		return receivedBy;
+	}
+
+	public void setReceivedBy(Set<User> receivedBy) {
+		this.receivedBy = receivedBy;
 	}
 
 }

@@ -166,8 +166,10 @@ export class CourseComponent implements OnInit {
   }
 
   startLottery(): void {
-    this.snackBar.open('Lottery not yet implemented', 'OK', {
-      duration: 3000
+    this.courseService.startLottery().subscribe(result => {
+      this.snackBar.open('Course lottery finished.', 'OK', {
+        duration: 5000
+      });
     });
   }
 

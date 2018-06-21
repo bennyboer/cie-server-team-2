@@ -6,59 +6,62 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class NotificationRequest {
+public class NotificationRequest<T> {
 
-    private String to = "/topics/all";
+	private String to = "/topics/all";
 
-    private String priority = "high";
+	private String priority = "high";
 
-    private Map<String, String> notification;
+	private Map<String, String> notification;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, String> data;
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	private Map<String, Object> data;
 
-    public NotificationRequest() {
-        // Default constructor needed for jackson.
-    }
+	public NotificationRequest() {
+		// Default constructor needed for jackson.
+	}
 
-    public NotificationRequest(String title, String content, Optional<String> to) {
-        notification = new HashMap<>();
-        data = new HashMap<>();
-        notification.put("title", title);
-        notification.put("body", content);
-        data.put("click-action", "FLUTTER_NOTIFICATION_CLICK");
-        this.to = to.orElse("/topics/all");
-    }
+	public NotificationRequest(String title, String content, Optional<String> to, Optional<T> additionalData) {
+		notification = new HashMap<>();
+		data = new HashMap<>();
+		notification.put("title", title);
+		notification.put("body", content);
+		data.put("click-action", "FLUTTER_NOTIFICATION_CLICK");
 
-    public String getPriority() {
-        return priority;
-    }
+		additionalData.ifPresent(addData -> data.put("additionalData", addData));
 
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
+		this.to = to.orElse("/topics/all");
+	}
 
-    public Map<String, String> getNotification() {
-        return notification;
-    }
+	public String getPriority() {
+		return priority;
+	}
 
-    public void setNotification(Map<String, String> notification) {
-        this.notification = notification;
-    }
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
 
-    public Map<String, String> getData() {
-        return data;
-    }
+	public Map<String, String> getNotification() {
+		return notification;
+	}
 
-    public void setData(Map<String, String> data) {
-        this.data = data;
-    }
+	public void setNotification(Map<String, String> notification) {
+		this.notification = notification;
+	}
 
-    public String getTo() {
-        return to;
-    }
+	public Map<String, Object> getData() {
+		return data;
+	}
 
-    public void setTo(String to) {
-        this.to = to;
-    }
+	public void setData(Map<String, Object> data) {
+		this.data = data;
+	}
+
+	public String getTo() {
+		return to;
+	}
+
+	public void setTo(String to) {
+		this.to = to;
+	}
 }

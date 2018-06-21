@@ -74,6 +74,13 @@ public class User implements UserDetails {
 	private Set<Course> favorizedCourses;
 
 	/**
+	 * Set of received courses (From the lottery).
+	 */
+	@JsonIgnore
+	@ManyToMany
+	private Set<Course> receivedCourses;
+
+	/**
 	 * Create new user.
 	 */
 	public User() {
@@ -224,6 +231,24 @@ public class User implements UserDetails {
 	 */
 	public void setFavorizedCourses(Set<Course> favorizedCourses) {
 		this.favorizedCourses = favorizedCourses;
+	}
+
+	/**
+	 * Get received courses (From the lottery).
+	 *
+	 * @return received courses
+	 */
+	public Set<Course> getReceivedCourses() {
+		return receivedCourses;
+	}
+
+	/**
+	 * Set received courses (From the lottery).
+	 *
+	 * @param receivedCourses courses the user received
+	 */
+	public void setReceivedCourses(Set<Course> receivedCourses) {
+		this.receivedCourses = receivedCourses;
 	}
 
 	/**

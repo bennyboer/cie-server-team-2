@@ -11,7 +11,8 @@ import edu.hm.cs.cieserver.department.Department;
 import edu.hm.cs.cieserver.department.DepartmentRepository;
 import edu.hm.cs.cieserver.lecturer.Lecturer;
 import edu.hm.cs.cieserver.lecturer.LecturerRepository;
-import edu.hm.cs.cieserver.security.login.LoginRequest;
+import edu.hm.cs.cieserver.notification.NotificationRequest;
+import edu.hm.cs.cieserver.notification.NotificationService;
 import edu.hm.cs.cieserver.user.User;
 import edu.hm.cs.cieserver.user.UserDetailsServiceImpl;
 import edu.hm.cs.cieserver.user.UserRepository;
@@ -34,11 +35,8 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -48,7 +46,7 @@ import java.util.*;
 @RequestMapping({"/api/courses"})
 public class CourseController {
 
-	private static String[] PDF_HEADERS = new String[] {
+	private static String[] PDF_HEADERS = new String[]{
 			"Courses in English",
 			"Course Description",
 			"Department",
@@ -86,6 +84,67 @@ public class CourseController {
 	@Autowired
 	private CourseAppointmentRepository courseAppointmentRepository;
 
+	@Autowired
+	private NotificationService notificationService;
+
+	@GetMapping(path = "/lottery")
+	public void doCourseLottery() {
+		Map<Long, Set<Course>> receivedCourses = new HashMap<>();
+
+		// Iterate over all courses and check whether more than the available slots are selected.
+		for (Course course : courseRepository.findAll()) {
+			Set<User> selectedByUsers = course.getSelectedBy();
+
+			if (selectedByUsers != null && selectedByUsers.size() > 0) {
+				if (selectedByUsers.size() > course.getAvailableSlots()) {
+					// Kick random users from the set.
+					int size = selectedByUsers.size();
+					int countOfUsersToKick = size - course.getAvailableSlots();
+					Set<Integer> usersToKick = new HashSet<>();
+
+					// Generate random indices to kick.
+					Random rng = new Random();
+					for (int i = 0; i < countOfUsersToKick; i++) {
+						int nextRandom = rng.nextInt(size);
+						while (usersToKick.contains(nextRandom)) {
+							nextRandom = rng.nextInt(size);
+						}
+
+						usersToKick.add(nextRandom);
+					}
+
+					int index = 0;
+					for (User user : selectedByUsers) {
+						if (!usersToKick.contains(index)) {
+							// User gets the course! HOORAY!
+							Set<Course> receivedCourseSet = receivedCourses.computeIfAbsent(user.getId(), key -> new HashSet<>());
+							receivedCourseSet.add(course);
+						}
+
+						index++;
+					}
+				} else {
+					for (User user : selectedByUsers) {
+						Set<Course> receivedCourseSet = receivedCourses.computeIfAbsent(user.getId(), key -> new HashSet<>());
+						receivedCourseSet.add(course);
+					}
+				}
+			}
+		}
+
+		// Finally store the received courses and notify the user.
+		for (Map.Entry<Long, Set<Course>> entry : receivedCourses.entrySet()) {
+			userRepository.findById(entry.getKey()).ifPresent(user -> {
+				user.setReceivedCourses(entry.getValue());
+				userRepository.save(user);
+
+				if (user.getFirebaseToken() != null) {
+					notificationService.send(new NotificationRequest<>("Your course lottery result is ready", "See your result!", Optional.of(user.getFirebaseToken()), Optional.of(entry.getValue())));
+				}
+			});
+		}
+	}
+
 	@GetMapping(path = "/import/nine")
 	public void importCoursesFromNINE() throws IOException {
 		String url = "https://nine.wi.hm.edu/api/v2/courses/FK%2013/CIE/SoSe%2018";
@@ -111,7 +170,7 @@ public class CourseController {
 
 				Set<CourseAppointment> appointments = new HashSet<>();
 				NineLecturer nineLecturer = null;
-				for (NineCourseAppointment nineCourseAppointment: nineCourse.getDates()) {
+				for (NineCourseAppointment nineCourseAppointment : nineCourse.getDates()) {
 					if (nineLecturer == null) {
 						nineLecturer = nineCourseAppointment.getLecturer().get(0);
 					}
@@ -180,7 +239,7 @@ public class CourseController {
 	public List<NineExportCourse> getNineExportCourses() {
 		List<NineExportCourse> nineExportCourses = new ArrayList<>();
 
-		for (Course course: courseRepository.findAll()) {
+		for (Course course : courseRepository.findAll()) {
 			nineExportCourses.add(new NineExportCourse(course));
 		}
 
@@ -239,7 +298,7 @@ public class CourseController {
 						try {
 							sws = Double.parseDouble(list.item(2).getTextContent().replace(',', '.'));
 							ects = Double.parseDouble(list.item(3).getTextContent().replace(',', '.'));
-							usCredits =  Double.parseDouble(list.item(4).getTextContent().replace(',', '.'));
+							usCredits = Double.parseDouble(list.item(4).getTextContent().replace(',', '.'));
 						} catch (Exception e) {
 							continue;
 						}
