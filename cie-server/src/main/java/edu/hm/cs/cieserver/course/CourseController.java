@@ -3,6 +3,7 @@ package edu.hm.cs.cieserver.course;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.hm.cs.cieserver.course.date.CourseAppointment;
 import edu.hm.cs.cieserver.course.date.CourseAppointmentRepository;
+import edu.hm.cs.cieserver.course.exporter.NineExportCourse;
 import edu.hm.cs.cieserver.course.importer.NineCourse;
 import edu.hm.cs.cieserver.course.importer.NineCourseAppointment;
 import edu.hm.cs.cieserver.course.importer.NineLecturer;
@@ -29,6 +30,9 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -169,14 +173,32 @@ public class CourseController {
 		}
 	}
 
+	/**
+	 * Special export of the courses for NINE (nine.wi.hm.edu)
+	 */
+	@GetMapping(path = "/export/nine")
+	public List<NineExportCourse> getNineExportCourses() {
+		List<NineExportCourse> nineExportCourses = new ArrayList<>();
+
+		for (Course course: courseRepository.findAll()) {
+			nineExportCourses.add(new NineExportCourse(course));
+		}
+
+		return nineExportCourses;
+	}
+
+
 	@PostMapping(path = "/import/xml")
-	public void importCoursesFromXML(@RequestBody String xmlUrl) throws IOException, ParserConfigurationException, SAXException {
-		String rawXML = IOUtils.toString(new URL(xmlUrl).openStream(), StandardCharsets.UTF_8);
+	public void importCoursesFromXML(@RequestBody String xmlUrl) throws IOException, ParserConfigurationException, SAXException, XMLStreamException {
+		final XMLStreamReader xmlStreamReader = XMLInputFactory.newInstance().createXMLStreamReader(new URL(xmlUrl).openStream());
+		String encodingFromXMLDeclaration = xmlStreamReader.getCharacterEncodingScheme();
+
+		String rawXML = IOUtils.toString(new URL(xmlUrl).openStream(), encodingFromXMLDeclaration);
 		rawXML = rawXML.replaceAll("&", "&amp;");
 
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-		Document doc = dBuilder.parse(IOUtils.toInputStream(rawXML, StandardCharsets.UTF_8));
+		Document doc = dBuilder.parse(IOUtils.toInputStream(rawXML, encodingFromXMLDeclaration));
 
 		doc.getDocumentElement().normalize();
 
@@ -198,6 +220,16 @@ public class CourseController {
 						Element courseElm = (Element) course;
 						String pdfUrl = courseElm.getElementsByTagName("url").item(0).getTextContent();
 						String title = courseElm.getElementsByTagName("text").item(0).getTextContent();
+
+						Node lastNode = courseElm.getChildNodes().item(courseElm.getChildNodes().getLength() - 1);
+						if (lastNode.getNodeType() == Node.TEXT_NODE) {
+							String rest = lastNode.getTextContent();
+
+							if (rest != null && !rest.isEmpty()) {
+								rest = rest.replaceAll("\n\r", "").trim();
+								title = (title + " " + rest).trim();
+							}
+						}
 
 						String lecturer = list.item(1).getTextContent();
 
