@@ -3,8 +3,6 @@
 ## Getting started
 
 ### Set environment variables
-- `CIE_PORT`: Port the server should run on
-- `CIE_DATASOURCE_USERNAME`: Datasource username
-- `CIE_DATASOURCE_PASSWORD`: Datasource password
-- `CIE_SECRET`: Set it to "develop" if you want to develop
-- `FIREBASE_KEY`: If you want to use firebase notifications
+The server needs several environment variables to run properly. Look them up in the Spring boot `application.properties`.
+
+For more information on building and developing, please lookup the root repositories README.
