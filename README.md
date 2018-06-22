@@ -8,6 +8,7 @@
 ![Release v3.0 Header](https://github.com/mobileappdevhm/cie-server-team-2/blob/master/res/pages/sprint-3-header.png)
 
 Sprint 3 has been completed and a new version released.
+[Look at the Spring Review for Release notes!](https://github.com/mobileappdevhm/cie-server-team-2/wiki/Sprint-3-Review)
 
 ## Motivation
 Since there was no really "good" solution besides using NINE (nine.wi.hm.edu) for getting the data for courses english, we decided to implement our own solution. It basically consists of a server - exposing a REST API - and a management interface - with which administrators can easily manage and control the apps contents.
