@@ -13,6 +13,7 @@ export class Course {
   semesterWeekHours: number;
   duration: number;
   courseStatus: string;
+  level: string;
 
   lecturer: Lecturer;
   department: Department;

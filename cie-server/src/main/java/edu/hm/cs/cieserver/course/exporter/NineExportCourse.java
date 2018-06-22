@@ -3,6 +3,7 @@ package edu.hm.cs.cieserver.course.exporter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.hm.cs.cieserver.campus.Campus;
 import edu.hm.cs.cieserver.course.Course;
+import edu.hm.cs.cieserver.course.CourseLevel;
 import edu.hm.cs.cieserver.course.CourseStatus;
 import edu.hm.cs.cieserver.course.date.CourseAppointment;
 import edu.hm.cs.cieserver.department.Department;
@@ -79,6 +80,14 @@ public class NineExportCourse {
 
 	public Set<CourseAppointment> getCourseAppointments() {
 		return course.getCourseAppointments();
+	}
+
+	public String getLevel() {
+		if (course.getLevel() == null) {
+			return CourseLevel.ANY.name();
+		}
+
+		return course.getLevel().name();
 	}
 
 }

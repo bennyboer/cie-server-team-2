@@ -53,6 +53,12 @@ public class Course {
 	private double semesterWeekHours;
 
 	/**
+	 * Level of the course.
+	 */
+	@Enumerated(EnumType.STRING)
+	private CourseLevel level;
+
+	/**
 	 * Status of the course.
 	 */
 	@Enumerated(EnumType.STRING)
@@ -221,6 +227,14 @@ public class Course {
 
 	public void setReceivedBy(Set<User> receivedBy) {
 		this.receivedBy = receivedBy;
+	}
+
+	public CourseLevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(CourseLevel level) {
+		this.level = level;
 	}
 
 }

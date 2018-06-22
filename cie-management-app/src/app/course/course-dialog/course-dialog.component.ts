@@ -10,6 +10,7 @@ import {DepartmentService} from '../../department/department.service';
 import {LecturerService} from '../../lecturer/lecturer.service';
 import {CourseAppointmentDialogComponent} from '../course-appointment-dialog/course-appointment-dialog.component';
 import {CourseAppointmentService} from '../course-appointment.service';
+import {CourseLevel} from '../course-level';
 
 @Component({
   selector: 'app-course-dialog',
@@ -154,6 +155,18 @@ export class CourseDialogComponent implements OnInit {
   getStatusNames(): string[] {
     const names = [];
     for (const member in CourseStatus) {
+      const isValueProperty = parseInt(member, 10) >= 0;
+      if (!isValueProperty) {
+        names.push(member);
+      }
+    }
+
+    return names;
+  }
+
+  getLevelNames(): string[] {
+    const names = [];
+    for (const member in CourseLevel) {
       const isValueProperty = parseInt(member, 10) >= 0;
       if (!isValueProperty) {
         names.push(member);

@@ -26,6 +26,14 @@
   </mat-form-field>
 
   <mat-form-field style="width: 100%">
+    <mat-select placeholder="Course level" [(value)]="course.level">
+      <mat-option *ngFor="let level of getLevelNames()" [value]="level">
+        {{ level }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field style="width: 100%">
     <mat-select placeholder="Course status" [(value)]="course.courseStatus">
       <mat-option *ngFor="let status of getStatusNames()" [value]="status">
         {{ status }}

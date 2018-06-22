@@ -286,16 +286,6 @@ public class CourseController {
 						String pdfUrl = courseElm.getElementsByTagName("url").item(0).getTextContent();
 						String title = courseElm.getElementsByTagName("text").item(0).getTextContent();
 
-						Node lastNode = courseElm.getChildNodes().item(courseElm.getChildNodes().getLength() - 1);
-						if (lastNode.getNodeType() == Node.TEXT_NODE) {
-							String rest = lastNode.getTextContent();
-
-							if (rest != null && !rest.isEmpty()) {
-								rest = rest.replaceAll("\n\r", "").trim();
-								title = (title + " " + rest).trim();
-							}
-						}
-
 						String lecturer = list.item(1).getTextContent();
 
 						double sws;
@@ -311,6 +301,13 @@ public class CourseController {
 
 						String category = list.item(5).getTextContent();
 						String level = list.item(6).getTextContent();
+
+						CourseLevel courseLevel = CourseLevel.ANY;
+						if (level.equals("Bachelor")) {
+							courseLevel = CourseLevel.BACHELOR;
+						} else if (level.equals("Master")) {
+							courseLevel = CourseLevel.MASTER;
+						}
 
 						// Parse PDF
 						Map<String, StringBuilder> additionalInfo = new HashMap<>();
