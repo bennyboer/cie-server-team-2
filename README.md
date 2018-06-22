@@ -5,7 +5,7 @@
 
 ## Current Release (v3.0)
 
-![Release v3.0 Header](https://github.com/mobileappdevhm/cie-server-team-2/blob/master/res/pages/sprint-3-header.png)
+![Release v3.0 Header](res/pages/sprint-3-header.png)
 
 Sprint 3 has been completed and a new version released.
 [Look at the Spring Review for Release notes!](https://github.com/mobileappdevhm/cie-server-team-2/wiki/Sprint-3-Review)
