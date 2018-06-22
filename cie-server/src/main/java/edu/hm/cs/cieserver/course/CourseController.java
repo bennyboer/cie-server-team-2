@@ -360,6 +360,7 @@ public class CourseController {
 							newCourse.setEcts(ects);
 							newCourse.setUsCredits(usCredits);
 							newCourse.setCourseStatus(CourseStatus.valueOf(category.toUpperCase()));
+							newCourse.setLevel(courseLevel);
 
 							// Try to setup a lecturer.
 							Lecturer l = null;
