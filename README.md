@@ -1,3 +1,8 @@
+# NOTE
+This was a project done at university where we created a cross-platform mobile application using Flutter. It was about informing students about courses available in english for exchange students. Additionally they should be able to select the courses they wanted for the next semester, check the universities campuses, contact their professors, ...
+
+My part was to set up the server which would manage the persistence and business logic layer of the application as well as certain parts of the resulting mobile app written in Flutter. 
+
 # Courses in English Server and Web Interface
 
 [![Build Status](https://travis-ci.org/mobileappdevhm/cie-server-team-2.svg?branch=master)](https://travis-ci.org/mobileappdevhm/cie-server-team-2)
